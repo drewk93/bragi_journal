@@ -6,7 +6,7 @@ import postgres from 'postgres';
 import pg from 'pg';
 import dotenv from 'dotenv';
 import cors from 'cors'
-
+import bcrypt from 'bcrypt'
 
 // EXPRESS
 const app = express();
@@ -27,6 +27,31 @@ const pool = new Pool({
 })
 
 app.use(express.static("public")) // needs public folder with index.html, main.js, main.css
+
+
+  // Password Functionality
+  const saltRounds = 10;
+  const myPlaintextPassword = 's0/\/\P4$$w0rD';
+  const someOtherPlaintextPassword = 'not_bacon';
+
+  // Create and Store
+      bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash){
+          
+      })
+
+// Load and check
+
+// Load hash from your password DB.
+bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+    // result == true
+});
+bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
+    // result == false
+});
+
+
+
+
 
 app.get('/login', async(req,res, next) =>{
 

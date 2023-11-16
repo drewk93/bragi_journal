@@ -5,9 +5,16 @@ $(document).ready(function() {
     const $resultsContainer = $('#resultsContainer'); // Corrected the selector
     $getGames.on('click', getGamesFunc);
 
+
+    // const domain = "https://bragi-journal-web-service.onrender.com"
+    const domain =  "http://localhost:3000"
+
+  
+  
+
     function getGamesFunc() {
         $resultsContainer.empty();
-        const url = "https://bragi-journal-web-service.onrender.com/games";
+        const url = domain + "/games";
 
         try {
             $.ajax({
@@ -24,5 +31,7 @@ $(document).ready(function() {
             console.error('Error fetching games:', error);
         }
     }
+
+
 
 });

@@ -4,3 +4,5 @@ node_modules
 ./.env
 .vscode
 ./.vscode
+.external_bragi_db
+./external_bragi_db
