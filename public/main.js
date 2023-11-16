@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     function getGamesFunc() {
         $resultsContainer.empty();
-        const url = "http://localhost:3000/games";
+        const url = "https://bragi-journal-web-service.onrender.com/games";
 
         try {
             $.ajax({
@@ -16,7 +16,7 @@ $(document).ready(function() {
                 success: function(data) {
                     data.forEach((item, index) => {
                         console.log(item);
-                        $resultsContainer.append(`<li class="game_item"><b>ID:</b> ${item.id} <b>Game Title:</b> ${item.game_name}</li>`); // Corrected the HTML structure
+                        $resultsContainer.append(`<li class="game_item"><b>ID:</b> ${item.game_id} <b>Game Title:</b> ${item.game_name}</li>`); // Corrected the HTML structure
                     });
                 }
             });
