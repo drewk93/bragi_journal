@@ -8,15 +8,40 @@ const app = express();
 app.use(express.json())
 dotenv.config()
 
-const sql = postgres(process.env.DATABASE_URL)
+const { Pool } = pg;
+
+const pool = new Pool({
+    // connectionString: process.env.DATABASE_URL
+    connectionString: process.env.EXTERNAL_DATABASE_URL
+})
+
 app.use(express.static("public")) // needs public folder with index.html, main.js, main.css
 
-const port = process.env.PORT
+app.get('/games', async(req, res, next) => {
+    try {
+        const result = await pool.query('SELECT * FROM games')
+        res.status(200).json(result.rows)
+    } catch(err){
+        next(err)
+    }
+});
 
-const start = () => {
-app.listen(port, () => {
-    console.log(`listening on Port ${port}`)
+
+app.use((err,req,res,next)=>{
+    console.log(err.stack);
+    res.type("text/plain");
+    res.status(err.status || 500);
+    res.send(err.message);
 })
-}
-start();
 
+
+
+const port = process.env.PORT;
+const start = () => {
+    app.listen(port, () => {
+        console.log(`listening on Port ${port}`)
+    })
+    }
+    start();
+
+console.log(process.env.EXTERNAL_DATABASE_URL)
