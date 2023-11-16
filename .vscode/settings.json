@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": true
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "CockroachDB",
+            "name": "bragi_external_db",
+            "connectString": "postgres://bragi_db_user:FxGvTPfnBXNAEj7R6Oy02WGRGwFRnRad@dpg-clb4jkent67s73f8sqdg-a.oregon-postgres.render.com/bragi_db"
+        }
+    ]
+}
