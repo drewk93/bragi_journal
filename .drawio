@@ -1,9 +1,219 @@
-<mxfile host="app.diagrams.net" modified="2023-11-16T00:32:10.358Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" version="22.1.2" etag="i568wuwXrv4KypAB6J52" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-16T01:39:58.384Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="V_FuXC_3R1u721GcASRa" version="22.1.2" type="github">
   <diagram name="Page-1" id="Ldvs7egstUGn0TmGMSyB">
-    <mxGraphModel>
+    <mxGraphModel dx="2049" dy="1111" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <object label="Login" id="8zkzLLha0ddy3JJjpeLY-11">
+          <mxCell parent="0" visible="0" />
+        </object>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-18" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;gradientColor=#b3b3b3;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-11">
+          <mxGeometry x="445" y="230" width="320" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-19" value="&lt;font style=&quot;font-size: 21px;&quot;&gt;&lt;b&gt;LOGIN&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-11">
+          <mxGeometry x="505" y="210" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-20" value="&amp;nbsp;Username" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-11">
+          <mxGeometry x="497" y="290" width="228" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-21" value="&amp;nbsp;Password" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-11">
+          <mxGeometry x="497" y="340" width="158" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-22" value="Submit" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-11">
+          <mxGeometry x="665" y="340" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-23" value="&lt;font color=&quot;#660000&quot; style=&quot;font-size: 33px;&quot;&gt;&lt;u&gt;BRAGI&lt;/u&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-11">
+          <mxGeometry x="540" y="130" width="130" height="60" as="geometry" />
+        </mxCell>
+        <object label="Main Screen" id="8zkzLLha0ddy3JJjpeLY-24">
+          <mxCell parent="0" />
+        </object>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-34" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="180" y="190" width="20" height="580" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-37" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="180" y="156" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-38" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="180" y="780" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-39" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="185" y="161" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-40" value="" style="triangle;whiteSpace=wrap;html=1;direction=south;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="185" y="785" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-41" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="180" y="206" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-49" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-46" value="Submit Search" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="51.25" y="70" width="87.5" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-47" value="&lt;span style=&quot;font-size: 16px;&quot;&gt;World of Warcraft&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="10" y="100" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-51" value="Search Games" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="10" y="40" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-52" value="&lt;span style=&quot;font-size: 36px;&quot;&gt;&quot;The Lost Relic&quot;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="220" y="30" width="380" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-53" value="Quest Title" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="350" y="20" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-54" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="220" y="100" width="380" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-55" value="Log Out" style="rounded=1;whiteSpace=wrap;html=1;glass=0;shadow=0;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="850" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-63" value="In a land shrouded in the emerald embrace of an ancient forest, whispers of a long-lost relic have resurfaced, drawing the attention of adventurers far and wide. Tales of this relic, said to hold immeasurable power, have been passed down through generations, but its exact location remains shrouded in mystery. The time has come for a daring soul to embark on a journey into the heart of the woods, in search of &quot;The Lost Relic.&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="240" y="160" width="320" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-58" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Quest Description&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="350" y="151" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-69" value="&lt;b&gt;&lt;u&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Quests&lt;/font&gt;&lt;/u&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-71" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="240" y="480" width="340" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-72" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;Quest Objectives&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="340" y="470" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-73" value="Travel to the ancient ruins located deep within the dense forest" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="290" y="530" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-75" value="1. Investigate The Ancient Ruins" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="315" y="500" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-76" value="Explore the ruins to locate a hidden chamber. Look for clues or inscriptions that might lead you to it" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="290" y="640" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-77" value="2. Uncover The Hidden Chamber" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="315" y="610" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-78" value="Incomplete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="337.5" y="710" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-81" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="480" width="20" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-82" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="760" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-83" value="" style="triangle;whiteSpace=wrap;html=1;direction=south;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="565" y="765" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-84" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="480" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-85" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="565" y="485" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-86" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="500" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-87" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="160" width="20" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-88" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="160" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-89" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="565" y="165" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-90" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="440" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-91" value="" style="triangle;whiteSpace=wrap;html=1;direction=south;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="565" y="445" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-92" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="560" y="180" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-93" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="620" y="100" width="530" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-94" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="1130" y="100" width="20" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-95" value="Quest Journal" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="630" y="80" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-96" value="Edit" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="640" y="130" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-97" value="Post" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="750" y="130" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-98" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="1130" y="780" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-99" value="" style="triangle;whiteSpace=wrap;html=1;direction=south;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="1135" y="785" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-100" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="1130" y="100" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-101" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="1135" y="105" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-102" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="1130" y="120" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-114" value="Complete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="337.5" y="580" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-122" value="&quot;All Good Things...&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="156" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-74" value="Complete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;gradientColor=#7ea6e0;strokeColor=#6c8ebf;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="196" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-124" value="&quot;The Lost Relic&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="231" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-113" value="Incomplete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="276" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-128" value="&quot;What Goes Up...&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="306" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-129" value="Incomplete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="351" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-131" value="&quot;Fable of Two Arrows&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="379.97" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-132" value="Complete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="424.97" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-134" value="&quot;Find Mr. Bugs&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="455" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-135" value="Incomplete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="500" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-137" value="&quot;Welcome to Applebees&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="530" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-138" value="Incomplete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="575" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-140" value="&quot;Just Another Fetch Quest&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="30" y="605" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-141" value="Incomplete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="42.5" y="650" width="105" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8zkzLLha0ddy3JJjpeLY-145" value="In a realm shrouded by the verdant embrace of an ancient forest, an alluring legend resurfaces, beckoning intrepid souls to embark on a journey into the heart of the wilderness. This is the tale of &quot;The Lost Relic,&quot; a quest steeped in mystery, adventure, and the promise of immeasurable power. The chronicle begins with a whisper, carried on the wind through dense foliage, speaking of a relic hidden in the depths of a forgotten world.&lt;br&gt;&lt;br&gt;The legend of the relic has transcended generations, a story passed down in hushed tones around campfires and in the quiet corners of taverns. It tells of an artifact of untold significance, said to possess the ability to shape destinies and rewrite the annals of history. Yet, despite its rumored power, its location remained a well-guarded secret, concealed within the enigmatic confines of an ancient forest.&lt;br&gt;&lt;br&gt;Our journey into this untamed wilderness begins with the quest&#39;s first objective: to investigate the ancient ruins deep within the forest&#39;s heart. As adventurers step into the labyrinthine depths of the woodland, a sense of awe and reverence fills the air. Towering trees, their trunks adorned with the ageless touch of moss and lichen, seem to guide the way, their branches forming a verdant canopy overhead. The forest floor is carpeted with vibrant flora, each step revealing the intricate tapestry of life that thrives in this secluded realm.&lt;br&gt;&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="8zkzLLha0ddy3JJjpeLY-24">
+          <mxGeometry x="640" y="175" width="480" height="605" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
