@@ -11,7 +11,7 @@ dotenv.config()
 const sql = postgres(process.env.DATABASE_URL)
 app.use(express.static("public")) // needs public folder with index.html, main.js, main.css
 
-const port = process.env.port
+const port = process.env.PORT
 
 const start = () => {
 app.listen(port, () => {
