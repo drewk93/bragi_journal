@@ -26,6 +26,8 @@ const pool = new Pool({
     connectionString: process.env.EXTERNAL_DATABASE_URL
 })
 
+const test = 0;
+
 app.use(express.static("public")) // needs public folder with index.html, main.js, main.css
 
 

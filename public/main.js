@@ -9,7 +9,7 @@ $(document).ready(function() {
     const domain = "https://bragi-journal-web-service.onrender.com"
     // const domain =  "http://localhost:3000"
 
-    $('#mainContainer').hide()
+
 
   
 
@@ -54,9 +54,6 @@ $(document).ready(function() {
                     console.log('Status Code', jgXHR.status);
                     $("#loginContainer").hide("slow", function(){
 
-                    })
-                    $('#mainContainer').show("slow", function(){
-        
                     })
                 },
                 error: function (error) {
