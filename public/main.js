@@ -2,20 +2,23 @@
 $(document).ready(function() {
 
     const $getGames = $('#getGames');
-    const $results = $('#results'); // Corrected the selector
+    const $results = $('#results');
+    const $questDescription = $('#questDescription');
+    const $questObjectives = $('#questObjectives');
     $getGames.on('click', getGamesFunc);
 
 
-    const domain = "https://bragi-journal-web-service.onrender.com"
-    // const domain =  "http://localhost:3000"
+    // const domain = "https://bragi-journal-web-service.onrender.com"
+    const domain =  "http://localhost:3000"
 
 
-    $results.on('click', '#gameListItem', function() {
-        const gameListItem = $(this).text().trim();
-        const encodedGameListItem = encodeURIComponent(gameListItem);
-        getQuestFunc(encodedGameListItem)
-    });
-  
+    $results.on('click', '#gameListItem', loadQuest);
+    $results.on('click', '#questListItem', function(){
+          const questItemTitle = $(this).find('#questItemTitle').text().trim();
+        const encodedQuestTitle = encodeURIComponent(questItemTitle);
+        console.log(encodedQuestTitle)
+        loadQuestEntryFunc(encodedQuestTitle)
+    })
 
     function getGamesFunc() {
         $results.empty();
@@ -43,7 +46,7 @@ $(document).ready(function() {
     
     function getQuestFunc(encodedGameListItem){
         $results.empty()
-        const url = domain + `/quests/${encodedGameListItem}`
+        const url = domain + `/games/${encodedGameListItem}`
         console.log(url)
         try {
             $.ajax({
@@ -55,7 +58,7 @@ $(document).ready(function() {
                         $results.append(
                             `<div id= "questListItem" class="container">
                                 <h4>${item.game_name}</h4>
-                                <h2>${item.quest_title}</h2>
+                                <h2 id="questItemTitle">${item.quest_title}</h2>
                             </div>`);
                     })
                 }
@@ -65,7 +68,36 @@ $(document).ready(function() {
         }
     }
 
+    function loadQuest() {
+        const gameListItem = $(this).text().trim();
+        const encodedGameListItem = encodeURIComponent(gameListItem);
+        console.log(encodedGameListItem)
+        getQuestFunc(encodedGameListItem);
+    }
 
+    function loadQuestEntryFunc(encodedQuestTitle){
+        $questDescription.empty();
+        $questObjectives.empty();
+        const url = domain + `/quests/${encodedQuestTitle}`
+        try {
+            $.ajax({
+                url, 
+                type: "GET",
+                success: function(data){
+                    
+                    console.log(data)
+                    data.forEach((item, index)=>{
+                        // $questDescription.append(
+                        //     ``
+                        // )
+                        console.log(item)
+                    })
+                }
+            })
+        }catch (error){
+            console.error('Error fetching quests:', error)
+        }
+    }
 
 
 

@@ -157,6 +157,17 @@
     border: 3px solid black;
 }
 
+#descriptionBody{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    font-size: 1.4em;
+    background-color: white;
+    padding: 1em;
+    overflow-y: scroll;
+}
+
 #questObjectives{
     display: flex;
     flex-direction: column;
@@ -165,6 +176,16 @@
     width: 100%;
     height: 70%;
     border: 3px solid black;
+    overflow-y: scroll;
+}
+
+#objectiveItem{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 1em;
+    background-color: white;
 }
 
 /* Journal */

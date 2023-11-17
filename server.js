@@ -40,7 +40,7 @@ app.get('/games', async(req, res, next) => {
     }
 });
 
-app.get('/quests/:game_name', async(req, res, next) => {
+app.get('/games/:game_name', async(req, res, next) => {
     const game_name = req.params.game_name
     try {
         const result = await pool.query('SELECT * FROM quests INNER JOIN games ON quests.game_id = games.game_id WHERE games.game_name = $1', [game_name])
@@ -49,6 +49,17 @@ app.get('/quests/:game_name', async(req, res, next) => {
         next(err)
     }
 });
+
+app.get('/quests/:quest_title', async(req, res, next) => {
+    const quest_title = req.params.quest_title
+    console.log(quest_title)
+    try {
+        const result = await pool.query('SELECT * FROM quests INNER JOIN quest_objectives ON quest_objectives.quest_id = quests.quest_id WHERE quests.quest_title = $1', [quest_title]);
+        res.status(200).json(result.rows)
+    } catch(err){
+        next(err)
+    }
+}) 
 
 app.get('/users', async(req, res, next) => {
     try {
