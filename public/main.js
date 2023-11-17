@@ -6,8 +6,8 @@ $(document).ready(function() {
     $getGames.on('click', getGamesFunc);
 
 
-    const domain = "https://bragi-journal-web-service.onrender.com"
-    // const domain =  "http://localhost:3000"
+    // const domain = "https://bragi-journal-web-service.onrender.com"
+    const domain =  "http://localhost:3000"
 
 
 
