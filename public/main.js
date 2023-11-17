@@ -5,6 +5,7 @@ $(document).ready(function() {
     const $results = $('#results');
     const $questDescription = $('#questDescription');
     const $questObjectives = $('#questObjectives');
+    const $questTitle = $('#questTitle');
     $getGames.on('click', getGamesFunc);
 
 
@@ -78,28 +79,30 @@ $(document).ready(function() {
     function loadQuestEntryFunc(encodedQuestTitle){
         $questDescription.empty();
         $questObjectives.empty();
+        $questTitle.empty();
         const url = domain + `/quests/${encodedQuestTitle}`
         try {
             $.ajax({
                 url, 
                 type: "GET",
                 success: function(data){
-                    
-                    console.log(data)
-                    // $questDescription.append(`
-                    // <h2>Quest Description</h2>
-                    // <div id="descriptionBody" class="container">
-                    //     <p>${data.quest_description}</p>
-                    // </div>
-                    // `)
-
-                    // data.forEach((item, index)=>{
-                       
-                    //     `
-                        
-                    //     `
-                    //     console.log(item)
-                    // })
+                    $questTitle.append(`<h1>${data[0].quest_title}</h1>`)
+                    const quest_description = data[0].quest_description
+                    $questDescription.append(`
+                    <h2>Quest Description</h2>
+                    <div id="descriptionBody" class="container">
+                        <p>${quest_description}</p>
+                    </div>
+                    `)
+                    data.forEach((item, index)=>{
+                        $questObjectives.append(
+                        `<div id=objectiveItem class="container">
+                        <h3>${item.objective_title}</h3>
+                        <li>${item.objective_description}</li>
+                        </div>`
+                        )
+                        console.log(item)
+                    })
                 }
             })
         }catch (error){
