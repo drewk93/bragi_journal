@@ -9,7 +9,8 @@ $(document).ready(function() {
     // const domain = "https://bragi-journal-web-service.onrender.com"
     const domain =  "http://localhost:3000"
 
-  
+    $('#mainContainer').hide()
+
   
 
     function getGamesFunc() {
@@ -37,7 +38,6 @@ $(document).ready(function() {
     $submitLogin.on('click', loginFunc)
     
     function loginFunc() {
-        console.log('button clicked');
         const url = domain + '/login';
         const userbody = {
             username: $('#username').val(),
@@ -50,14 +50,18 @@ $(document).ready(function() {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(userbody),
-                success: function (data) {
-                    console.log('LOGIN SUCCESS');
-                    
-                    $resultsContainer.append(`<p> SUCCESS DUDE </p>`);
+                success: function (data, textStatus, jgXHR) {
+                    console.log('Status Code', jgXHR.status);
+                    $("#loginContainer").hide("slow", function(){
+
+                    })
+                    $('#mainContainer').show("slow", function(){
+        
+                    })
                 },
                 error: function (error) {
                     console.log('LOGIN FAILED');
-                    $resultsContainer.append(`<p> DANG </p>`);
+                    $resultsContainer.empty()
                 },
             });
         } catch (error) {
@@ -65,6 +69,4 @@ $(document).ready(function() {
             console.error('Failed to login', userbody);
         }
     }
-   
-
 });

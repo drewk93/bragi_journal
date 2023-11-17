@@ -5,25 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="main.js"></script>
 </head>
-<body>
+<body id="body">
     <div id="mainContainer" class="container">
         <button id="getGames" class="btn">Get Games</button>
         <div id="resultsContainer" class="container">
             
         </div>
     </div>
+    <div id="bragi" class="container">
+        <h1> Bragi </h1>
+    </div>
     <div id="loginContainer" class="container">
+    
         <h1>Login</h1>
-        <form id="loginForm">
-            
+            <label for="username" class="labels"> username:</label>
             <input type="text" id="username" placeholder="username" autocomplete="off"><br><br>
+            <label for="password" class="labels"> password:</label>
             <input type="password" id="password" placeholder="password" autocomplete="off"><br><br>
     
-            <button id="submitLogin" type="submit">Login</button>
-        </form>
+            <button id="submitLogin" type="submit">SUBMIT</button>
+        
     </div>
 
     

@@ -1,0 +1,58 @@
+
+/* Chief Colors Scheme
+
+- Ivory: #E2DED0;
+- Blue Gray: #647C90
+- Cool Gray: #4E4F50
+- Gray:#746C70
+
+*/
+
+#body{
+    background: #E2DED0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+#bragi {
+    border: 2px solid black;
+    width: 200px;
+    height: 200px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 1em;
+}
+
+#loginContainer{
+    background-image: linear-gradient(#647C90, black, black);
+    color: white;
+    font-family: Montserrat;
+    font-size: 1.8em;
+    display: flex column;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 50px;
+    padding: 4em;
+    text-align: center; 
+    width: 15%;
+}
+
+#submitLogin {
+    background: orange;
+    font-size: 1em;
+    padding: .5em;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+#submitLogin:hover {
+    background-color: white; /* Change background color to white when hovered */
+     transform: scale(1.5);
+}
+
+.labels {
+    font-size: .8em;
+}
