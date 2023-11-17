@@ -9,7 +9,7 @@ INSERT INTO games (game_name) VALUES
     ('War of the Grapes');
 
 -- Inserting data into the "quests" table
-INSERT INTO quests (quest_title, description, game_id) VALUES
+INSERT INTO quests (quest_title, quest_description, game_id) VALUES
     (
     'All Good Things...',
     'Embark on a perilous journey to recover a long-lost artifact that holds the key to ancient mysteries. Face treacherous challenges and uncover the secrets of a forgotten civilization.',
@@ -32,7 +32,7 @@ INSERT INTO quests (quest_title, description, game_id) VALUES
     );
 
 -- Inserting data into the "quest_objectives" table
-INSERT INTO quest_objectives (objective_title, description, quest_id) VALUES
+INSERT INTO quest_objectives (objective_title, objective_description, quest_id) VALUES
     ('Find the Artifact',
     'Locate the hidden artifact by following a series of cryptic clues and unraveling ancient puzzles.',
     1

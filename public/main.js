@@ -86,12 +86,20 @@ $(document).ready(function() {
                 success: function(data){
                     
                     console.log(data)
-                    data.forEach((item, index)=>{
-                        // $questDescription.append(
-                        //     ``
-                        // )
-                        console.log(item)
-                    })
+                    // $questDescription.append(`
+                    // <h2>Quest Description</h2>
+                    // <div id="descriptionBody" class="container">
+                    //     <p>${data.quest_description}</p>
+                    // </div>
+                    // `)
+
+                    // data.forEach((item, index)=>{
+                       
+                    //     `
+                        
+                    //     `
+                    //     console.log(item)
+                    // })
                 }
             })
         }catch (error){

@@ -21,7 +21,7 @@ CREATE TABLE games (
 CREATE TABLE quests (
     quest_id SERIAL PRIMARY KEY NOT NULL,
     quest_title VARCHAR(32) NOT NULL,
-    description TEXT,
+    quest_description TEXT,
     game_id INT NOT NULL,
     FOREIGN KEY (game_id) REFERENCES games(game_id)
 );
@@ -29,7 +29,7 @@ CREATE TABLE quests (
 CREATE TABLE quest_objectives (
     quest_objective_id SERIAL PRIMARY KEY NOT NULL,
     objective_title VARCHAR(32) NOT NULL,
-    description TEXT,
+    objective_description TEXT,
     quest_id INT NOT NULL,
     FOREIGN KEY (quest_id) REFERENCES quests(quest_id)
 );
