@@ -29,34 +29,6 @@ const pool = new Pool({
 app.use(express.static("public")) // needs public folder with index.html, main.js, main.css
 
 
-  // Password Functionality
-  const saltRounds = 10;
-  const myPlaintextPassword = 's0/\/\P4$$w0rD';
-  const someOtherPlaintextPassword = 'not_bacon';
-
-  // Create and Store
-      bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash){
-          
-      })
-
-// Load and check
-
-// Load hash from your password DB.
-bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
-    // result == true
-});
-bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
-    // result == false
-});
-
-
-
-
-
-app.get('/login', async(req,res, next) =>{
-
-})
-
 app.get('/games', async(req, res, next) => {
     try {
         const result = await pool.query('SELECT * FROM games')
@@ -74,6 +46,30 @@ app.get('/users', async(req, res, next) => {
         next(err)
     }
 });
+
+app.post('/login', async (req, res) =>{
+    const {username, password} = req.body
+    
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        if (result.rows.length === 1){
+            const user = result.rows[0];
+            const isPasswordValid = await bcrypt.compare(password, user.password)
+
+            if (isPasswordValid){
+                console.log('SUCCESS')
+                res.status(200).json({message: 'Login Successful'});
+            } else {
+                
+                res.status(401).json({message: 'Authentication Failed'})
+            }
+        } else {
+            res.status(404).json({ message: 'User not found'})
+        }
+    } catch (err){
+        next (err)
+    }
+})
 
 app.use((err,req,res,next)=>{
     console.log(err.stack);

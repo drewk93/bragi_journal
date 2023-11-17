@@ -14,7 +14,7 @@ $(document).ready(function() {
 
     function getGamesFunc() {
         $resultsContainer.empty();
-        const url = domain + "/games";
+        const url = domain + '/games';
 
         try {
             $.ajax({
@@ -31,7 +31,36 @@ $(document).ready(function() {
             console.error('Error fetching games:', error);
         }
     }
+    
+    $submit = $('#submit')
 
-
+    $submit.on('click', loginFunc)
+    console.log('button clicked')
+    function loginFunc() {
+        const url = domain + '/login'
+        const userbody = { username: $('#username').val(),
+                           password: $('#password').val()
+        };
+        try {
+            $.ajax({
+                url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(userbody),
+                success: function(data){
+                    if (data.success){
+                        console.log('LOGIN SUCCESS')
+                        $resultsContainer.append(`<p> SUCCESS DUDE </p>`)
+                    } else {
+                        console.log('LOGIN FAILED')
+                        $resultsContainer.append(`<p> LOGIN BADDDDD </p>`)
+                    }
+                }
+            })
+        }catch(error){
+            console.error('Error:', error)
+        }
+    }
+   
 
 });
