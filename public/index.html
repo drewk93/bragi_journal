@@ -18,13 +18,11 @@
     <div id="loginContainer" class="container">
         <h1>Login</h1>
         <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br><br>
+            
+            <input type="text" id="username" placeholder="username" autocomplete="off"><br><br>
+            <input type="password" id="password" placeholder="password" autocomplete="off"><br><br>
     
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br><br>
-    
-            <button type="submit">Login</button>
+            <button id="submitLogin" type="submit">Login</button>
         </form>
     </div>
 

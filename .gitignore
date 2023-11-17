@@ -4,5 +4,7 @@ node_modules
 ./.env
 .vscode
 ./.vscode
-.external_bragi_db.session.sql
+external_bragi_db.session.sql
+./external_bragi_db.session.sql
+.local_bragi_db.session.sql
 ./external_bragi_db.session.sql
