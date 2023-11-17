@@ -22,8 +22,8 @@ dotenv.config()
 const { Pool } = pg;
 
 const pool = new Pool({
-    // connectionString: process.env.DATABASE_URL
-    connectionString: process.env.EXTERNAL_DATABASE_URL
+    connectionString: process.env.DATABASE_URL
+    // connectionString: process.env.EXTERNAL_DATABASE_URL
 })
 
 const test = 0;
@@ -84,11 +84,9 @@ app.use((err,req,res,next)=>{
 
 
 const port = process.env.PORT;
-const start = () => {
+
     app.listen(port, () => {
         console.log(`listening on Port ${port}`)
     })
-    }
-    start();
+    
 
-console.log(process.env.EXTERNAL_DATABASE_URL)
