@@ -8,3 +8,5 @@ external_bragi_db.session.sql
 ./external_bragi_db.session.sql
 .local_bragi_db.session.sql
 ./external_bragi_db.session.sql
+elements.html
+./elements.html

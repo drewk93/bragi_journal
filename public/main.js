@@ -2,19 +2,19 @@
 $(document).ready(function() {
 
     const $getGames = $('#getGames');
-    const $resultsContainer = $('#resultsContainer'); // Corrected the selector
+    const $gameResults = $('#gameResults'); // Corrected the selector
     $getGames.on('click', getGamesFunc);
 
 
-    const domain = "https://bragi-journal-web-service.onrender.com"
-    // const domain =  "http://localhost:3000"
+    // const domain = "https://bragi-journal-web-service.onrender.com"
+    const domain =  "http://localhost:3000"
 
 
 
   
 
     function getGamesFunc() {
-        $resultsContainer.empty();
+        $gameResults.empty();
         const url = domain + '/games';
 
         try {
@@ -24,7 +24,7 @@ $(document).ready(function() {
                 success: function(data) {
                     data.forEach((item, index) => {
                         console.log(item);
-                        $resultsContainer.append(`<li class="game_item"><b>ID:</b> ${item.game_id} <b>Game Title:</b> ${item.game_name}</li>`); // Corrected the HTML structure
+                        $gameResults.append(`<li class="game_item"><b>ID:</b> ${item.game_id} <b>Game Title:</b> ${item.game_name}</li>`); // Corrected the HTML structure
                     });
                 }
             });
@@ -36,7 +36,11 @@ $(document).ready(function() {
     $submitLogin = $('#submitLogin')
 
     $submitLogin.on('click', loginFunc)
-    
+
+
+
+    $("#loginContainer").hide()
+
     function loginFunc() {
         const url = domain + '/login';
         const userbody = {
@@ -50,8 +54,8 @@ $(document).ready(function() {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(userbody),
-                success: function (data, textStatus, jgXHR) {
-                    console.log('Status Code', jgXHR.status);
+                success: function (data, textStatus, XHR) {
+                    console.log('Status Code', XHR.status);
                     $("#loginContainer").hide("slow", function(){
 
                     })
