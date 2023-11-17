@@ -22,8 +22,8 @@ dotenv.config()
 const { Pool } = pg;
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-    // connectionString: process.env.EXTERNAL_DATABASE_URL
+    // connectionString: process.env.DATABASE_URL
+    connectionString: process.env.EXTERNAL_DATABASE_URL
 })
 
 app.use(express.static("public")) // needs public folder with index.html, main.js, main.css
