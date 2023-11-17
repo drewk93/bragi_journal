@@ -94,7 +94,7 @@
     width:20%;
 }
 
-#gameResults {
+#results {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,17 +104,39 @@
     width: 100%;
     border:3px solid black;
     padding: 1em;
+    gap: 2em;
+    overflow-y: scroll;
 }
 
 #gameListItem {
     display: flex;
     flex-direction: column;
+    align-items: center;
     box-sizing: border-box;
     width: 100%;
     padding: 1em;
     border: 1px solid black;
+    border-radius: 30px;
 }
 
+#gameListItem:hover{
+    background-color: grey;
+}
+
+#questListItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+#questListItem:hover{
+    background-color: grey;
+}
 /* Quests */
 
 #questsSection{

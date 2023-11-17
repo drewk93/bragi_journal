@@ -40,6 +40,16 @@ app.get('/games', async(req, res, next) => {
     }
 });
 
+app.get('/quests/:game_name', async(req, res, next) => {
+    const game_name = req.params.game_name
+    try {
+        const result = await pool.query('SELECT * FROM quests INNER JOIN games ON quests.game_id = games.game_id WHERE games.game_name = $1', [game_name])
+        res.status(200).json(result.rows)
+    } catch(err){
+        next(err)
+    }
+});
+
 app.get('/users', async(req, res, next) => {
     try {
         const result = await pool.query('SELECT * FROM users')
