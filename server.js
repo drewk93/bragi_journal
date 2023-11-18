@@ -50,6 +50,8 @@ app.get('/games/:game_name', async(req, res, next) => {
     }
 });
 
+// SELECT QUEST AND LIST OBJECTIVES
+
 app.get('/quests/:quest_title', async(req, res, next) => {
     const quest_title = req.params.quest_title
     console.log(quest_title)
@@ -64,22 +66,48 @@ app.get('/quests/:quest_title', async(req, res, next) => {
 app.get('/users', async(req, res, next) => {
     try {
         const result = await pool.query('SELECT * FROM users')
-        res.status(200).json(result.rows)
+        res.status(200).json(result.rows);
     } catch(err){
         next(err)
     }
 });
 
+// Quest Assignment
+
+app.get('/check_assignment/:user_id/:quest_title', async (req, res) => {
+    const user_id = req.params.user_id;
+    const quest_title = req.params.quest_title;
+
+
+    try {
+        // Check if the assignment exists in the database
+        const result = await pool.query(
+            'SELECT EXISTS (SELECT 1 FROM assigned_quests WHERE user_id = $1 AND quest_id = (SELECT quest_id FROM quests WHERE quest_title = $2))',
+            [user_id, quest_title]
+        );
+
+        const assignmentExists = result.rows[0].exists;
+
+        // Send the result as a JSON response
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Error checking assignment:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// ACCEPT QUEST
+
 app.post('/quests/assigned_quests', async (req, res, next) => {
     const newAssignedQuest = req.body;
     try {
-      if (!newAssignedQuest.username || !newAssignedQuest.quest_title) {
+      if (!newAssignedQuest.user_id || !newAssignedQuest.quest_title) {
         res.status(400).json({ error: 'Invalid Request' });
       } else {
         // First pool.query to insert into assigned_quests and retrieve quest_id
         const result1 = await pool.query(
-          'INSERT INTO assigned_quests(completed, user_id, quest_id) SELECT false, (SELECT user_id FROM users WHERE username = $1 LIMIT 1), (SELECT quest_id FROM quests WHERE quest_title = $2 LIMIT 1) RETURNING *',
-          [newAssignedQuest.username, newAssignedQuest.quest_title]
+            'INSERT INTO assigned_quests(completed, user_id, quest_id) SELECT false, (SELECT user_id FROM users WHERE user_id = $1 LIMIT 1), (SELECT quest_id FROM quests WHERE quest_title = $2 LIMIT 1) RETURNING *',
+            [newAssignedQuest.user_id, newAssignedQuest.quest_title]
         );
   
         const newAssignedQuestId = result1.rows[0].assigned_quest_id;
@@ -104,8 +132,8 @@ app.post('/quests/assigned_quests', async (req, res, next) => {
   
         // Third pool.query to insert into the journal table
         await pool.query(
-          'INSERT INTO journal(content, user_id, assigned_quest_id) VALUES ($1, $2, $3)',
-          ['', userId, newAssignedQuestId]
+          'INSERT INTO journal(user_id, assigned_quest_id) VALUES ($1, $2)',
+          [userId, newAssignedQuestId]
         );
   
         // Include the new assignment data along with the IDs in the response
@@ -133,7 +161,7 @@ app.post('/login', async (req, res) =>{
 
             if (isPasswordValid){
                 console.log('Login Successful')
-                res.status(200).json({message: 'Login Successful'});
+                res.status(200).json({ message: 'Login Successful', user_id: user.user_id });
             } else {
                 console.log('Authentication Failed')
                 res.status(401).json({message: 'Authentication Failed'})

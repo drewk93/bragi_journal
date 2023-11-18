@@ -6,7 +6,7 @@ $(document).ready(function() {
     const $questDescription = $('#questDescription');
     const $objectiveScroll = $('#objectiveScroll')
     const $questTitle = $('#questTitle');
-
+    const $acceptQuest = $('#acceptQuest');
     $getGames.on('click', getGamesFunc);
 
 
@@ -14,23 +14,16 @@ $(document).ready(function() {
     const domain =  "http://localhost:3000"
 
 
-    $results.on('click', '#gameListItem', loadQuest);
-    $results.on('click', '#questListItem', function(){
-        const questItemTitle = $(this).find('#questItemTitle').text().trim();
-        const encodedQuestTitle = encodeURIComponent(questItemTitle);
-        console.log(encodedQuestTitle)
-        loadQuestEntryFunc(encodedQuestTitle)
-    })
+
 
 
 
     $submitLogin = $('#submitLogin')
     $submitLogin.on('click', loginFunc)
-    const logins = [];
+    const logins = {}
 
 
-
-    // $("#loginContainer").hide()
+    // LOGIN
 
     function loginFunc() {
         const url = domain + '/login';
@@ -47,7 +40,10 @@ $(document).ready(function() {
                 data: JSON.stringify(userbody),
                 success: function (data, textStatus, XHR) {
                     console.log('Status Code', XHR.status);
-                    logins.push({username: userbody.username, login: true})
+                    const user_id = data.user_id
+                    logins.user_id = user_id;
+                    logins.username = userbody.username;
+                    logins.login = true;
                     console.log(logins)
                 },
                 error: function (error) {
@@ -60,7 +56,7 @@ $(document).ready(function() {
         }
     }
 
-
+    // LIST GAMES
 
     function getGamesFunc() {
         $results.empty();
@@ -72,7 +68,6 @@ $(document).ready(function() {
                 type: "GET",
                 success: function(data) {
                     data.forEach((item, index) => {
-                        console.log(item);
                         $results.append(
                             `<div id="gameListItem" class="container">
                                 <h2>${item.game_name}</h2>
@@ -85,8 +80,16 @@ $(document).ready(function() {
             console.error('Error fetching games:', error);
         }
     }
+
+    // LIST QUESTS
+    $results.on('click', '#gameListItem', loadQuestList);
+    function loadQuestList() {
+        const gameListItem = $(this).text().trim();
+        const encodedGameListItem = encodeURIComponent(gameListItem);
+        loadQuestListFunc(encodedGameListItem);
+    }
     
-    function getQuestFunc(encodedGameListItem){
+    function loadQuestListFunc(encodedGameListItem){
         $results.empty()
         const url = domain + `/games/${encodedGameListItem}`
         console.log(url)
@@ -110,17 +113,64 @@ $(document).ready(function() {
         }
     }
 
-    function loadQuest() {
-        const gameListItem = $(this).text().trim();
-        const encodedGameListItem = encodeURIComponent(gameListItem);
-        console.log(encodedGameListItem)
-        getQuestFunc(encodedGameListItem);
+
+
+    // LIST QUESTS AND OBJECTIVES
+
+    $results.on('click', '#questListItem', function(){
+        const questItemTitle = $(this).find('#questItemTitle').text().trim();
+        const encodedQuestTitle = encodeURIComponent(questItemTitle);
+        console.log(encodedQuestTitle)
+        checkAssignmentAndLoadQuest(encodedQuestTitle)
+    })
+
+    function checkAssignmentAndLoadQuest(quest_title) {
+        let user_id;
+        if (Object.keys(logins).length > 0) {
+            user_id = logins.user_id
+        }     
+        const url = domain + `/check_assignment/${user_id}/${quest_title}`;
+        console.log(user_id)
+        console.log(quest_title)
+        try {
+            $.ajax({
+                url,
+                type: 'GET',
+                success: function (data) {
+                    const exists = data[0].exists;
+                    console.log(exists)
+                    if (data.length > 0 && data[0].exists === true) {
+                        let assigned = true;
+                        loadQuestEntryFunc(quest_title, assigned);
+                    } else {
+                        console.log(data)
+                        let assigned = false;
+                        loadQuestEntryFunc(quest_title, assigned);
+                        // Handle the case where the assignment does not exist
+                    }
+                },
+                error: function (error) {
+                    console.error('Error checking assignment:', error);
+                },
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
-    function loadQuestEntryFunc(encodedQuestTitle){
+    function loadQuestEntryFunc(encodedQuestTitle, assigned){
+        console.log(assigned)
         $questDescription.empty()
         $objectiveScroll.empty();
         $questTitle.empty();
+
+        if(assigned){
+            $acceptQuest.hide()
+        } else {
+            $acceptQuest.show();
+        }
+
+
         const url = domain + `/quests/${encodedQuestTitle}`
         try {
             $.ajax({
@@ -142,7 +192,6 @@ $(document).ready(function() {
                         <li>${item.objective_description}</li>
                         </div>`
                         )
-                        console.log(item)
                     })
                 }
             })
@@ -151,30 +200,20 @@ $(document).ready(function() {
         }
     }
 
-    $addQuest = $('#addQuest');
 
-    $addQuest.on('click', function() {
-        let isEmpty = true;
-        logins.forEach((item) => {
-            if (item.username && item.login === true) {
-                isEmpty = false;
-                addQuestFunc(item.username)
-            }
-        });
-        
-        if (isEmpty) {
-            console.log('Logins Empty');
-        } else {
-            console.log('Logins Present')
+    
+
+    $acceptQuest.on('click', function() {
+        if (Object.keys(logins).length > 0) {
+           const user_id = logins.user_id
+           acceptQuestFunc(user_id);
         }
     });
     
-    function addQuestFunc(username){
-       console.log(username)
-       console.log($questTitle.text());
+    function acceptQuestFunc(user_id){
        const url = domain + '/quests/assigned_quests'
        const newQuest = {
-            username: username,
+            user_id: user_id,
             quest_title: $questTitle.text(),
        }
        try {
@@ -184,10 +223,6 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(newQuest),
                 success: function(response){
-                    const newAssignedQuestId  = response.assigned_quest_id
-                    const questId = response.quest_id
-                    console.log('newAssignedQuestId', newAssignedQuestId);
-                    console.log('questId:', questId)
                 }
             })
         }catch(error){
