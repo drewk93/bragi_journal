@@ -55,6 +55,7 @@ CREATE TABLE journal (
     assigned_quest_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (assigned_quest_id) REFERENCES assigned_quests(assigned_quest_id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE assigned_objectives (
@@ -64,4 +65,5 @@ CREATE TABLE assigned_objectives (
     quest_objective_id INT NOT NULL,
     FOREIGN KEY (assigned_quest_id) REFERENCES assigned_quests(assigned_quest_id),
     FOREIGN KEY (quest_objective_id) REFERENCES quest_objectives(quest_objective_id)
+    ON DELETE CASCADE
 );

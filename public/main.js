@@ -10,8 +10,8 @@ $(document).ready(function() {
     $getGames.on('click', getGamesFunc);
 
 
-    const domain = "https://bragi-journal-web-service.onrender.com"
-    // const domain =  "http://localhost:3000"
+    // const domain = "https://bragi-journal-web-service.onrender.com"
+    const domain =  "http://localhost:3000"
 
 
     $results.on('click', '#gameListItem', loadQuest);
@@ -185,7 +185,9 @@ $(document).ready(function() {
                 data: JSON.stringify(newQuest),
                 success: function(response){
                     const newAssignedQuestId  = response.assigned_quest_id
-                    console.log('Quest Added:', newAssignedQuestId);
+                    const questId = response.quest_id
+                    console.log('newAssignedQuestId', newAssignedQuestId);
+                    console.log('questId:', questId)
                 }
             })
         }catch(error){
