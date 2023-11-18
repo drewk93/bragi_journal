@@ -41,7 +41,12 @@ CREATE TABLE assigned_quests (
     quest_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (quest_id) REFERENCES quests(quest_id)
+    CONSTRAINT unique_assignment UNIQUE (user_id, quest_id
 );
+
+ALTER TABLE assigned_quests
+ADD CONSTRAINT unique_assignment
+UNIQUE (user_id, quest_id);
 
 CREATE TABLE journal (
     post_id SERIAL PRIMARY KEY NOT NULL,

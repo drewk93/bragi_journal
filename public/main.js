@@ -4,22 +4,63 @@ $(document).ready(function() {
     const $getGames = $('#getGames');
     const $results = $('#results');
     const $questDescription = $('#questDescription');
-    const $questObjectives = $('#questObjectives');
+    const $objectiveScroll = $('#objectiveScroll')
     const $questTitle = $('#questTitle');
+
     $getGames.on('click', getGamesFunc);
 
 
-    // const domain = "https://bragi-journal-web-service.onrender.com"
-    const domain =  "http://localhost:3000"
+    const domain = "https://bragi-journal-web-service.onrender.com"
+    // const domain =  "http://localhost:3000"
 
 
     $results.on('click', '#gameListItem', loadQuest);
     $results.on('click', '#questListItem', function(){
-          const questItemTitle = $(this).find('#questItemTitle').text().trim();
+        const questItemTitle = $(this).find('#questItemTitle').text().trim();
         const encodedQuestTitle = encodeURIComponent(questItemTitle);
         console.log(encodedQuestTitle)
         loadQuestEntryFunc(encodedQuestTitle)
     })
+
+
+
+    $submitLogin = $('#submitLogin')
+    $submitLogin.on('click', loginFunc)
+    const logins = [];
+
+
+
+    // $("#loginContainer").hide()
+
+    function loginFunc() {
+        const url = domain + '/login';
+        const userbody = {
+            username: $('#username').val(),
+            password: $('#password').val(),
+        };
+    
+        try {
+            $.ajax({
+                url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(userbody),
+                success: function (data, textStatus, XHR) {
+                    console.log('Status Code', XHR.status);
+                    logins.push({username: userbody.username, login: true})
+                    console.log(logins)
+                },
+                error: function (error) {
+                    console.log('LOGIN FAILED');
+                },
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            console.error('Failed to login', userbody);
+        }
+    }
+
+
 
     function getGamesFunc() {
         $results.empty();
@@ -77,8 +118,8 @@ $(document).ready(function() {
     }
 
     function loadQuestEntryFunc(encodedQuestTitle){
-        $questDescription.empty();
-        $questObjectives.empty();
+        $questDescription.empty()
+        $objectiveScroll.empty();
         $questTitle.empty();
         const url = domain + `/quests/${encodedQuestTitle}`
         try {
@@ -86,7 +127,7 @@ $(document).ready(function() {
                 url, 
                 type: "GET",
                 success: function(data){
-                    $questTitle.append(`<h1>${data[0].quest_title}</h1>`)
+                    $questTitle.append(`${data[0].quest_title}`)
                     const quest_description = data[0].quest_description
                     $questDescription.append(`
                     <h2>Quest Description</h2>
@@ -95,7 +136,7 @@ $(document).ready(function() {
                     </div>
                     `)
                     data.forEach((item, index)=>{
-                        $questObjectives.append(
+                        $objectiveScroll.append(
                         `<div id=objectiveItem class="container">
                         <h3>${item.objective_title}</h3>
                         <li>${item.objective_description}</li>
@@ -110,43 +151,46 @@ $(document).ready(function() {
         }
     }
 
+    $addQuest = $('#addQuest');
 
-
-    $submitLogin = $('#submitLogin')
-
-    $submitLogin.on('click', loginFunc)
-
-
-
-    $("#loginContainer").hide()
-
-    function loginFunc() {
-        const url = domain + '/login';
-        const userbody = {
-            username: $('#username').val(),
-            password: $('#password').val(),
-        };
+    $addQuest.on('click', function() {
+        let isEmpty = true;
+        logins.forEach((item) => {
+            if (item.username && item.login === true) {
+                isEmpty = false;
+                addQuestFunc(item.username)
+            }
+        });
+        
+        if (isEmpty) {
+            console.log('Logins Empty');
+        } else {
+            console.log('Logins Present')
+        }
+    });
     
-        try {
+    function addQuestFunc(username){
+       console.log(username)
+       console.log($questTitle.text());
+       const url = domain + '/quests/assigned_quests'
+       const newQuest = {
+            username: username,
+            quest_title: $questTitle.text(),
+       }
+       try {
             $.ajax({
                 url,
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(userbody),
-                success: function (data, textStatus, XHR) {
-                    console.log('Status Code', XHR.status);
-                    $("#loginContainer").hide("slow", function(){
-
-                    })
-                },
-                error: function (error) {
-                    console.log('LOGIN FAILED');
-                    $resultsContainer.empty()
-                },
-            });
-        } catch (error) {
-            console.error('Error:', error);
-            console.error('Failed to login', userbody);
+                data: JSON.stringify(newQuest),
+                success: function(response){
+                    const newAssignedQuestId  = response.assigned_quest_id
+                    console.log('Quest Added:', newAssignedQuestId);
+                }
+            })
+        }catch(error){
+            console.error('Error adding quest:', error)
+            console.error(newQuest)
         }
     }
 });

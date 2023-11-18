@@ -8,8 +8,16 @@
 
 */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --ivory: #E2DED0;
+    --highlight: #4E4F50;
+}
+
 #body{
-    background: #E2DED0;
+    background: var(--ivory);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,7 +26,7 @@
     height: 100vh;
 }
 
-#header{
+#navbar{
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -27,6 +35,7 @@
     height: 8%;
     border: 3px solid black;
 }
+
 
 #bragiTitle{
     box-sizing: border-box;
@@ -41,9 +50,21 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    width: 30%;
+    width: 50%;
     height: 100%;
     border: 3px solid black;
+    padding: 1em;
+}
+
+
+#loginContainer{
+   box-sizing: border-box;
+   display: flex;
+   height: 50%;
+}
+
+#submitLogin {
+   
 }
 
 
@@ -115,6 +136,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 1em;
+    gap: .5em;
     border: 1px solid black;
     border-radius: 30px;
 }
@@ -130,73 +152,13 @@
     box-sizing: border-box;
     width: 100%;
     padding: 1em;
+    gap: .5em;
     border: 1px solid black;
     border-radius: 30px;
 }
 
 #questListItem:hover{
     background-color: grey;
-}
-/* Quests */
-
-#questsSection{
-    box-sizing: border-box;
-    width:40%;
-    height: 100%;
-    border: 3px solid black;
-}
-
-
-#questDescription{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-    height: 30%;
-    border: 3px solid black;
-}
-
-#descriptionBody{
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    width: 96%;
-    font-size: 1.4em;
-    background-color: white;
-    padding: 1em;
-    overflow-y: scroll;
-}
-
-#questObjectives{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-    height: 70%;
-    border: 3px solid black;
-    overflow-y: scroll;
-}
-
-#objectiveScroll{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    border: 3px solid black;
-    overflow-y: scroll;
-}
-
-#objectiveItem{
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    padding: 1em;
-    background-color: white;
 }
 
 /* Journal */
@@ -211,12 +173,31 @@
     border: 3px solid black;
 }
 
-#questTitle{
+#questTitleContainerINSERT INTO assigned_quests (
+    assigned_quest_id,
+    completed,
+    user_id,
+    user_id,
+    quest_id,
+    quest_id
+  )
+VALUES (
+    assigned_quest_id:integer,
+    completed:boolean,
+    user_id:integer,
+    user_id:integer,
+    quest_id:integer,
+    quest_id:integer
+  );{
     box-sizing: border-box;
     display: flex; 
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    width: 90%;
+    align-items: center;
+    font-size: 1.1em;
+    padding: 1.2em;
+    gap: 1em;
+    width: 100%;
     height: 15%;
     border: 3px solid black;
 }
@@ -240,33 +221,74 @@
     padding: 1em;
 }
 
-#loginContainer{
-    background-image: linear-gradient(#647C90, black, black);
-    color: white;
-    font-family: Montserrat;
-    font-size: 1.8em;
-    display: flex column;
-    justify-content: center;
-    border: 2px solid black;
-    border-radius: 50px;
-    padding: 4em;
-    text-align: center; 
-    width: 15%;
+
+/* Quests */
+
+#questsSection{
+    box-sizing: border-box;
+    width:40%;
+    height: 100%;
+    border: 3px solid black;
 }
 
-#submitLogin {
-    background: orange;
-    font-size: 1em;
-    padding: .5em;
-    border-radius: 20px;
-    transition: all 0.3s ease;
+
+#questDescription{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    padding: 1em;
+    width: 100%;
+    height: 30%;
+    border: 3px solid black;
 }
 
-#submitLogin:hover {
-    background-color: white; /* Change background color to white when hovered */
-     transform: scale(1.5);
+#descriptionBody{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    font-size: 1.4em;
+    background-color: white;
+    padding: 1em;
+    overflow-y: scroll;
 }
 
-.labels {
-    font-size: .8em;
+#questObjectives{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 70%;
+    border: 3px solid black;
+    padding: 1em;
+
 }
+
+#objectiveScroll{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 3px solid black;
+    overflow-y: scroll;
+    gap: 1.5em;
+    padding: 1em .5em;
+}
+
+#objectiveItem{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 1.5em;
+    background-color: white;
+    border: thin solid black;
+}
+
+

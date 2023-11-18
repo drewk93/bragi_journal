@@ -70,6 +70,33 @@ app.get('/users', async(req, res, next) => {
     }
 });
 
+app.post('/quests/assigned_quests', async(req,res,next) =>{
+    const newAssignedQuest = req.body
+    try {
+        if (!newAssignedQuest.username || !newAssignedQuest.quest_title){
+            res.status(400).json({ error: 'Invalid Request'});
+        } else {
+            const result = await pool.query(
+                'INSERT INTO assigned_quests(completed, user_id, quest_id) SELECT false,(SELECT user_id FROM users WHERE username = $1 LIMIT 1),(SELECT quest_id FROM quests WHERE quest_title = $2 LIMIT 1) RETURNING assigned_quest_id',
+                [newAssignedQuest.username, newAssignedQuest.quest_title]
+              );
+
+            const newAssignedQuestId = result.rows[0].assigned_quest_id;
+
+            // Include the new assignment data along with the ID in the response
+            const response = {
+                message: 'Assignment created successfully',
+                assigned_quest_id: newAssignedQuestId,
+                data: newAssignedQuest, // Include the new assignment data
+            };
+            res.status(201).json(response);
+        }
+    } catch (err){
+        next(err);
+    }
+
+})
+
 app.post('/login', async (req, res) =>{
     const {username, password} = req.body
     

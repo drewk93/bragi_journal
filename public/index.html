@@ -15,13 +15,20 @@
 
 
 
-    <div id="header" class="container">
+    <div id="navbar" class="container">
         <div id="bragiTitle" class="container">
 
         </div>
 
         <div id="accountSection" class="container">
-            
+            <div id="loginContainer" class="container">
+            <label for="username" class="labels"> username:</label>
+            <input type="text" id="username" placeholder="username" autocomplete="off"><br><br>
+            <label for="password" class="labels"> password:</label>
+            <input type="password" id="password" placeholder="password" autocomplete="off"><br><br>
+    
+            <button id="submitLogin" type="submit">SUBMIT</button>
+        </div>
         </div>
     </div>
 
@@ -56,9 +63,11 @@
 
         <div id="journalSection" class="journalSection">
             Journals
-            <div id="questTitle" class="container">
-                Quest Title
+            <div id="questTitleContainer" class="container">
+                <h1 id="questTitle">Quest Title</h1>
+                <button id="addQuest" class="container">Add Quest</button>
             </div>
+            
 
             <div id="journalBody" class="container">
 
@@ -98,17 +107,8 @@
 
 
     </div>
-    <!-- <div id="loginContainer" class="container">
-    
-        <h1>Login</h1>
-            <label for="username" class="labels"> username:</label>
-            <input type="text" id="username" placeholder="username" autocomplete="off"><br><br>
-            <label for="password" class="labels"> password:</label>
-            <input type="password" id="password" placeholder="password" autocomplete="off"><br><br>
-    
-            <button id="submitLogin" type="submit">SUBMIT</button>
-        
-    </div> -->
+
+
 
     
 </body>
