@@ -168,27 +168,12 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    width: 40%;
+    width: 50%;
     height: 100%;
     border: 3px solid black;
 }
 
-#questTitleContainerINSERT INTO assigned_quests (
-    assigned_quest_id,
-    completed,
-    user_id,
-    user_id,
-    quest_id,
-    quest_id
-  )
-VALUES (
-    assigned_quest_id:integer,
-    completed:boolean,
-    user_id:integer,
-    user_id:integer,
-    quest_id:integer,
-    quest_id:integer
-  );{
+#questTitleContainer {
     box-sizing: border-box;
     display: flex; 
     flex-direction: column;
@@ -202,13 +187,60 @@ VALUES (
     border: 3px solid black;
 }
 
-#journalBody{
+#journalHeader{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 1em;
+    border: 1px solid black;
+}
+
+#journalBody {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 97%;
-    height: 82%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     border: 3px solid black;
+    padding: 1em;
+}
+
+#journal {
+    /* Center the #journal horizontally and vertically */
+    display: none;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#journalContent {
+    /* Center the #journalContent horizontally and vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1em;
+    width: 90%;
+    height: 100%;
+}
+
+#journalDisplay {
+    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1em;
+    width: 90%;
+    height: 100%;
+    
 }
 
 
@@ -226,13 +258,14 @@ VALUES (
 
 #questsSection{
     box-sizing: border-box;
-    width:40%;
+    width:30%;
     height: 100%;
-    border: 3px solid black;
+    border: 3px solid green;
 }
 
 
 #questDescription{
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -257,6 +290,7 @@ VALUES (
 }
 
 #questObjectives{
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;

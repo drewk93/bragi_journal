@@ -7,6 +7,8 @@ $(document).ready(function() {
     const $objectiveScroll = $('#objectiveScroll')
     const $questTitle = $('#questTitle');
     const $acceptQuest = $('#acceptQuest');
+    $acceptQuest.hide();
+    const $journalBody = $('#journalBody')
     $getGames.on('click', getGamesFunc);
 
 
@@ -21,7 +23,10 @@ $(document).ready(function() {
     $submitLogin = $('#submitLogin')
     $submitLogin.on('click', loginFunc)
     const logins = {}
+    const currentQuestObject = {
 
+
+    }
 
     // LOGIN
 
@@ -55,6 +60,40 @@ $(document).ready(function() {
             console.error('Failed to login', userbody);
         }
     }
+
+    $submitRegister = $('#submitRegister');
+    $submitRegister.on('click', registerUser)
+
+    function registerUser() {
+        const url = domain + '/register';
+        const userbody = {
+            username: $('#username').val(),
+            password: $('#password').val(),
+        };
+    
+        try {
+            $.ajax({
+                url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(userbody),
+                success: function (data, textStatus, XHR) {
+                    if (XHR.status === 201) {
+                        console.log('Registration successful'); // Registration was successful
+                    } else {
+                        console.log('Registration Failed');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                },
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
 
     // LIST GAMES
 
@@ -138,10 +177,12 @@ $(document).ready(function() {
                 type: 'GET',
                 success: function (data) {
                     const exists = data[0].exists;
+                    const assigned_quest_id = data[0].assigned_quest_id
                     console.log(exists)
                     if (data.length > 0 && data[0].exists === true) {
                         let assigned = true;
-                        loadQuestEntryFunc(quest_title, assigned);
+                        loadQuestEntryFunc(quest_title, assigned, assigned_quest_id, user_id);
+                        console.log(data)
                     } else {
                         console.log(data)
                         let assigned = false;
@@ -158,20 +199,20 @@ $(document).ready(function() {
         }
     }
 
-    function loadQuestEntryFunc(encodedQuestTitle, assigned){
-        console.log(assigned)
+    function loadQuestEntryFunc(quest_title, assigned, assigned_quest_id, user_id){
         $questDescription.empty()
         $objectiveScroll.empty();
         $questTitle.empty();
-
+        $journalBody.empty();
         if(assigned){
             $acceptQuest.hide()
+            loadJournal(assigned_quest_id, user_id)
         } else {
             $acceptQuest.show();
         }
 
 
-        const url = domain + `/quests/${encodedQuestTitle}`
+        const url = domain + `/quests/${quest_title}`
         try {
             $.ajax({
                 url, 
@@ -201,7 +242,7 @@ $(document).ready(function() {
     }
 
 
-    
+    // ACCEPT QUEST
 
     $acceptQuest.on('click', function() {
         if (Object.keys(logins).length > 0) {
@@ -222,7 +263,13 @@ $(document).ready(function() {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(newQuest),
-                success: function(response){
+                success: function(data){
+                    $acceptQuest.hide()
+                    const assigned_quest_id = data.assigned_quest_id;
+                    const user_id = data.user_id;
+                    loadJournal(assigned_quest_id, user_id)
+                    console.log(data)
+                    
                 }
             })
         }catch(error){
@@ -230,4 +277,28 @@ $(document).ready(function() {
             console.error(newQuest)
         }
     }
+
+
+    function loadJournal(assigned_quest_id, user_id){
+
+        
+        // $journalBody.append(`
+        // <div id="journalHeader" class="container">
+        // <button type="submit">Edit</button>
+        // <button type="submit">Post</button>
+        // </div>
+        // <form id = "journal">
+        //     <textarea id="journalContent" name="journal-content" rows="6" cols="50"></textarea>
+        // </form>
+        // <div id="journalDisplay" class="container">
+        // </div>
+        // `
+
+    }
+
+
+
 });
+
+const $editJournal = $('#editJournal')
+const $postJournal = $('#postJournal')

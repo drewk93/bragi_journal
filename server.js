@@ -82,10 +82,10 @@ app.get('/check_assignment/:user_id/:quest_title', async (req, res) => {
     try {
         // Check if the assignment exists in the database
         const result = await pool.query(
-            'SELECT EXISTS (SELECT 1 FROM assigned_quests WHERE user_id = $1 AND quest_id = (SELECT quest_id FROM quests WHERE quest_title = $2))',
+            'SELECT EXISTS (SELECT 1 FROM assigned_quests WHERE user_id = $1 AND quest_id = (SELECT quest_id FROM quests WHERE quest_title = $2)) RETURNING assigned_quest_id',
             [user_id, quest_title]
         );
-
+        const newAssignedQuestId = result1.rows[0].assigned_quest_id;
         const assignmentExists = result.rows[0].exists;
 
         // Send the result as a JSON response
@@ -112,7 +112,7 @@ app.post('/quests/assigned_quests', async (req, res, next) => {
   
         const newAssignedQuestId = result1.rows[0].assigned_quest_id;
         const questId = result1.rows[0].quest_id;
-        const userId = result1.rows[0].user_id;
+        const user_id = result1.rows[0].user_id;
   
         // Second pool.query to fetch quest_objective_id values based on quest_id
         const result2 = await pool.query(
@@ -131,14 +131,16 @@ app.post('/quests/assigned_quests', async (req, res, next) => {
         }
   
         // Third pool.query to insert into the journal table
-        await pool.query(
-          'INSERT INTO journal(user_id, assigned_quest_id) VALUES ($1, $2)',
-          [userId, newAssignedQuestId]
+        const result3 = await pool.query(
+          'INSERT INTO journal(user_id, assigned_quest_id) VALUES ($1, $2) RETURNING *',
+          [user_id, newAssignedQuestId]
         );
+    
   
         // Include the new assignment data along with the IDs in the response
         const response = {
           message: 'Assignment created successfully',
+          user_id: user_id,
           assigned_quest_id: newAssignedQuestId,
           quest_id: questId
         };
@@ -150,7 +152,7 @@ app.post('/quests/assigned_quests', async (req, res, next) => {
     }
   });
 
-app.post('/login', async (req, res) =>{
+app.post('/login', async (req, res, next) =>{
     const {username, password} = req.body
     
     try {
@@ -175,6 +177,35 @@ app.post('/login', async (req, res) =>{
     }
 })
 
+
+app.post('/register', async (req, res, next) => {
+    const { username, password } = req.body;
+
+    try {
+        const userExists = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+
+        if (userExists.rows.length > 0) {
+            return res.status(409).json({ message: 'Username already exists' });
+        }
+        const hash = await bcrypt.hash(password, 10);
+        const result = await pool.query(
+            'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *',
+            [username, hash]
+        );
+
+        // Send a success response
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/journal/:user_id/:assigned_quest_id', async (req, res, next) => {
+
+})
+
+
 app.use((err,req,res,next)=>{
     console.log(err.stack);
     res.type("text/plain");
@@ -190,4 +221,3 @@ const port = process.env.PORT;
         console.log(`listening on Port ${port}`)
     })
     
-
