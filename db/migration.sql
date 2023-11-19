@@ -15,12 +15,12 @@ CREATE TABLE users (
 
 CREATE TABLE games (
     game_id SERIAL PRIMARY KEY NOT NULL,
-    game_name VARCHAR(32) NOT NULL
+    game_name VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE quests (
     quest_id SERIAL PRIMARY KEY NOT NULL,
-    quest_title VARCHAR(32) NOT NULL,
+    quest_title VARCHAR(64) NOT NULL,
     quest_description TEXT,
     game_id INT NOT NULL,
     FOREIGN KEY (game_id) REFERENCES games(game_id)
@@ -28,7 +28,7 @@ CREATE TABLE quests (
 
 CREATE TABLE quest_objectives (
     quest_objective_id SERIAL PRIMARY KEY NOT NULL,
-    objective_title VARCHAR(32) NOT NULL,
+    objective_title VARCHAR(64) NOT NULL,
     objective_description TEXT,
     quest_id INT NOT NULL,
     FOREIGN KEY (quest_id) REFERENCES quests(quest_id)
@@ -40,13 +40,9 @@ CREATE TABLE assigned_quests (
     user_id INT NOT NULL,
     quest_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (quest_id) REFERENCES quests(quest_id)
-    CONSTRAINT unique_assignment UNIQUE (user_id, quest_id
+    FOREIGN KEY (quest_id) REFERENCES quests(quest_id),
+    CONSTRAINT unique_assignment UNIQUE (user_id, quest_id)
 );
-
-ALTER TABLE assigned_quests
-ADD CONSTRAINT unique_assignment
-UNIQUE (user_id, quest_id);
 
 CREATE TABLE journal (
     post_id SERIAL PRIMARY KEY NOT NULL,
