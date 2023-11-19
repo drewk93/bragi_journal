@@ -1,4 +1,13 @@
 $(document).ready(function () {
+
+    // DOMAIN URL ROOTS
+
+    // const domain = "https://bragi-journal-web-service.onrender.com/";
+    const domain = "http://localhost:3000";
+
+
+
+
     const $getGames = $('#getGames');
     const $results = $('#results');
     const $questDescription = $('#questDescription');
@@ -10,16 +19,17 @@ $(document).ready(function () {
     $dropQuest.hide();
     const $journalBody = $('#journalBody');
     $getGames.on('click', getGamesFunc);
+
   
-    const domain = "http://localhost:3000";
-  
-    $submitLogin = $('#submitLogin');
-    $submitLogin.on('click', loginFunc);
+   
+
     const logins = {};
     let currentJournal = {};
+    let currentObjectives = {}
   
     // LOGIN
-  
+    $submitLogin = $('#submitLogin');
+    $submitLogin.on('click', loginFunc);
     async function loginFunc() {
       const url = domain + '/login';
       const userbody = {
@@ -48,8 +58,7 @@ $(document).ready(function () {
   
     $submitRegister = $('#submitRegister');
     $submitRegister.on('click', registerUser);
-  
-    async function registerUser() {
+      async function registerUser() {
       const url = domain + '/register';
       const userbody = {
         username: $('#username').val(),
@@ -107,8 +116,7 @@ $(document).ready(function () {
       loadQuestListFunc(encodedGameListItem);
       console.log(encodedGameListItem);
     }
-  
-    async function loadQuestListFunc(encodedGameListItem) {
+      async function loadQuestListFunc(encodedGameListItem) {
       $results.empty()
       const url = domain + `/games/${encodedGameListItem}`;
       console.log(url);
@@ -140,8 +148,7 @@ $(document).ready(function () {
       console.log(encodedQuestTitle);
       checkAssignmentAndLoadQuest(encodedQuestTitle);
     })
-  
-    async function checkAssignmentAndLoadQuest(quest_title) {
+      async function checkAssignmentAndLoadQuest(quest_title) {
       let user_id;
       if (Object.keys(logins).length > 0) {
         user_id = logins.user_id
@@ -185,6 +192,7 @@ $(document).ready(function () {
         $acceptQuest.hide()
         $dropQuest.show()
         await loadJournal(assigned_quest_id, user_id)
+        await loadQuestObjectives(assigned_quest_id)
       } else {
         $acceptQuest.show();
         $dropQuest.hide();
@@ -218,8 +226,7 @@ $(document).ready(function () {
         await acceptQuestFunc(user_id);
       }
     });
-  
-    async function acceptQuestFunc(user_id) {
+      async function acceptQuestFunc(user_id) {
       const url = domain + '/quests/assigned_quests'
       const newQuest = {
         user_id: user_id,
@@ -236,7 +243,8 @@ $(document).ready(function () {
         $dropQuest.show();
         const assigned_quest_id = data.assigned_quest_id;
         const user_id = data.user_id;
-        await loadJournal(assigned_quest_id, user_id);
+        await loadJournal(assigned_quest_id, user_id)
+        await loadQuestObjectives(assigned_quest_id)
         console.log(data);
       } catch (error) {
         console.error('Error adding quest:', error);
@@ -259,13 +267,13 @@ $(document).ready(function () {
         };
         $journalBody.append(`
           <div id="journalHeader" class="container">
-            <button type="submit">Edit</button>
-            <button type="submit">Post</button>
+            <button id ="editJournal" type="submit">Edit</button>
+            <button id="saveJournal" type="submit">Post</button>
           </div>
           <form id="journal">
             <textarea id="journalContent" name="journal-content" rows="6" cols="50">${data[0].content}</textarea>
           </form>
-          <div id="journalDisplay" class="container"></div>
+          <div id="journalDisplay" class="container">${data[0].content}</div>
         `);
        
       } catch (error) {
@@ -273,7 +281,29 @@ $(document).ready(function () {
       }
     }
 
+
+    $journalBody.on('click', '#saveJournal', function() {
+        // Find the closest parent div with id "journalHeader"
+        const $parentDiv = $(this).closest('#journalHeader');
+    
+        // Find the textarea within the parent divCon
+        const $journalContentTextarea = $parentDiv.find('#journal');
+    
+        // Get the value of the textarea
+        const journalContentValue = $journalContentTextarea.val();
+    
+        // Log the value to the console
+        console.log('working');
+        console.log(journalContentValue);
+    });
+
+    async function editJournal(post_id){
+        const url = domain + `/journal/${post_id}`
+        const updatedContent =$('#journalContent').val();
+    }
+
     async function loadQuestObjectives(assigned_quest_id){
+        currentObjectives = {}
         const url = domain + `/assigned_objectives/${assigned_quest_id}`
         try {
             const data = await $.ajax({
@@ -281,45 +311,91 @@ $(document).ready(function () {
                 type: 'GET'
             })
             data.forEach((item, index) => {
+                const buttonText = item.completed ? 'Complete' : 'Incomplete';
                 $objectiveScroll.append(
                   `<div class="objectiveItem">
                     <h3>${item.objective_title}</h3>
                     <li>${item.objective_description}</li>
+                    <button id="objectiveComplete">${buttonText}</button>
                   </div>`
                 )
-              })
+
+            currentObjectives[item.quest_objective_id] = {
+                    quest_objective_id: item.quest_objective_id,
+                    objective_title: item.objective_title,
+                    objective_description: item.objective_description,
+                    quest_id: item.quest_id,
+                    assigned_quest_objective_id: item.assigned_quest_objective_id,
+                    completed: item.completed,
+                    assigned_quest_id: item.assigned_quest_id,
+            }
+            })
+            console.log(currentObjectives)
             
         }catch(error){
             console.error('Error Loading Quest Objectives', error)
         }
     }
 
+    $objectiveScroll.on('click', '#objectiveComplete', function () {
+        console.log("working");
+        // Find the closest parent div with class "objectiveItem"
+        const $parentDiv = $(this).closest('.objectiveItem');
+        const $objectiveTitle = $parentDiv.find('h3');
+        const objectiveTitleText = $objectiveTitle.text();
+            const matchingObjective = Object.values(currentObjectives).find(
+            (objective) => objective.objective_title === objectiveTitleText
+        );
+        if (matchingObjective) {
+            // Matching objective found
+            const assigned_quest_objective_id = matchingObjective.assigned_quest_objective_id;
+            const assigned_quest_id = matchingObjective.assigned_quest_id;
+    
+            objectiveToggleFunc(assigned_quest_objective_id, assigned_quest_id)
+        }
+    });
+
+    async function objectiveToggleFunc(assigned_quest_objective_id, assigned_quest_id){
+        const url = domain + `/assigned_objectives/${assigned_quest_objective_id}`
+        try {
+            const data = await $.ajax({
+                url,
+                type: 'PUT',
+                contentType: 'application/json'
+            })
+            console.log('Objective Updated Successfully', data)
+            $objectiveScroll.empty();
+            loadQuestObjectives(assigned_quest_id)
+        }catch(error){
+            console.error('Error Updating Objective', error)
+        }
+    }
+
+
+
   
     $dropQuest.on('click', dropQuestFunc)
       async function dropQuestFunc() {
-      console.log('working')
-      let questToDrop = currentJournal.assigned_quest_id;
-      console.log(questToDrop)
-      const url = domain + `/quests/assigned_quests/${questToDrop}`
-  
-      try {
-        const data = await $.ajax({
-          url,
-          type: 'DELETE',
-        });
-        console.log('Quest Dropped', data)
-        $journalBody.empty();
-        $dropQuest.hide();
-        $acceptQuest.show();
-      } catch (error) {
-        console.error('Error Dropping Quest:', error);
-      }
+        console.log('working')
+        let questToDrop = currentJournal.assigned_quest_id;
+        console.log(questToDrop)
+        const url = domain + `/quests/assigned_quests/${questToDrop}`
+    
+        try {
+            const data = await $.ajax({
+            url,
+            type: 'DELETE',
+            });
+            console.log('Quest Dropped', data)
+            $journalBody.empty();
+            $objectiveScroll.empty();
+            $dropQuest.hide();
+            $acceptQuest.show();
+        } catch (error) {
+            console.error('Error Dropping Quest:', error);
+        }
     }
+
+
   
   });
-  
-
-
-
-const $editJournal = $('#editJournal')
-const $postJournal = $('#postJournal')

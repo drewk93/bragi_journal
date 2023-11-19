@@ -239,6 +239,23 @@ app.get('/journal/:user_id/:assigned_quest_id', async (req, res, next) => {
     }
 })
 
+app.put('/journal/:post_id', async (req, res, next) => {
+    const post_id = parseInt(req.params.post_id);
+    const updatedContent = req.body.content;
+
+    try {
+        const result = await pool.query('UPDATE journal SET content = $1 WHERE post_id = $2 RETURNING *',
+        [updatedContent, post_id]
+        );
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(404).json({ error: 'Resource Not Found' });
+    }
+});
+
+
+
 app.get('/assigned_objectives/:assigned_quest_id', async (req, res, next) => {
     const assigned_quest_id = parseInt(req.params.assigned_quest_id);
 
@@ -253,7 +270,8 @@ app.get('/assigned_objectives/:assigned_quest_id', async (req, res, next) => {
             return;
         }
 
-        const quest_objective_id = result.rows[0].quest_objective_id;
+        const assignedObjectives = result.rows;
+        const assignedObjectiveIds = assignedObjectives.map(obj => obj.assigned_quest_objective_id);
 
         const result2 = await pool.query(
             `SELECT 
@@ -271,13 +289,35 @@ app.get('/assigned_objectives/:assigned_quest_id', async (req, res, next) => {
             ON 
                 quest_objectives.quest_objective_id = assigned_objectives.quest_objective_id
             WHERE 
-                quest_objectives.quest_objective_id = $1`,
-            [quest_objective_id]
+                assigned_objectives.assigned_quest_objective_id = ANY($1)`,
+            [assignedObjectiveIds]
         );
 
         res.status(200).json(result2.rows);
     } catch (error) {
         console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.put('/assigned_objectives/:assigned_quest_objective_id', async (req, res, next) => {
+    const assigned_quest_objective_id = parseInt(req.params.assigned_quest_objective_id);
+    const updatedObjective = req.body;
+    
+    try {
+        const result = await pool.query(
+            'UPDATE assigned_objectives SET completed = CASE WHEN completed = true THEN false WHEN completed = false THEN true ELSE false END WHERE assigned_quest_objective_id = $1 RETURNING *',
+            [assigned_quest_objective_id]
+        );
+        
+        if (result.rowCount === 0) {
+            // No rows were updated, which means the resource was not found
+            return res.status(404).json({ error: 'Resource not found' });
+        }
+
+        const updatedRows = result.rows;
+        res.status(200).json({ message: 'Objective Updated Successfully', resource: updatedRows });
+    } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -298,7 +338,6 @@ app.delete('/quests/assigned_quests/:assigned_quest_id', async (req, res, next) 
         res.status(500).json({ message: 'Error dropping quest' });
     }
 });
-
 
 
 app.use((err,req,res,next)=>{
