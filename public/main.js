@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     // DOMAIN URL ROOTS
 
-    const domain = "https://bragi-journal-web-service.onrender.com/";
+    const domain = "https://bragi-journal-web-service.onrender.com";
     // const domain = "http://localhost:3000";
 
 
