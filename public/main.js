@@ -8,6 +8,8 @@ $(document).ready(function() {
     const $questTitle = $('#questTitle');
     const $acceptQuest = $('#acceptQuest');
     $acceptQuest.hide();
+    const $dropQuest = $('#dropQuest');
+    $dropQuest.hide();
     const $journalBody = $('#journalBody')
     $getGames.on('click', getGamesFunc);
 
@@ -22,11 +24,8 @@ $(document).ready(function() {
 
     $submitLogin = $('#submitLogin')
     $submitLogin.on('click', loginFunc)
-    const logins = {}
-    const currentQuestObject = {
-
-
-    }
+    const logins = {};
+    let currentJournal = {};
 
     // LOGIN
 
@@ -126,6 +125,7 @@ $(document).ready(function() {
         const gameListItem = $(this).text().trim();
         const encodedGameListItem = encodeURIComponent(gameListItem);
         loadQuestListFunc(encodedGameListItem);
+        console.log(encodedGameListItem)
     }
     
     function loadQuestListFunc(encodedGameListItem){
@@ -176,18 +176,20 @@ $(document).ready(function() {
                 url,
                 type: 'GET',
                 success: function (data) {
-                    const exists = data[0].exists;
-                    const assigned_quest_id = data[0].assigned_quest_id
+                    const exists = data.exists;
+                    const assigned_quest_id = data.assigned_quest_id
+                    const user_id = data.user_id
                     console.log(exists)
-                    if (data.length > 0 && data[0].exists === true) {
+                    if (exists) {
                         let assigned = true;
+                        console.log
                         loadQuestEntryFunc(quest_title, assigned, assigned_quest_id, user_id);
                         console.log(data)
                     } else {
                         console.log(data)
                         let assigned = false;
                         loadQuestEntryFunc(quest_title, assigned);
-                        // Handle the case where the assignment does not exist
+                        
                     }
                 },
                 error: function (error) {
@@ -204,11 +206,14 @@ $(document).ready(function() {
         $objectiveScroll.empty();
         $questTitle.empty();
         $journalBody.empty();
+       
         if(assigned){
             $acceptQuest.hide()
+            $dropQuest.show()
             loadJournal(assigned_quest_id, user_id)
         } else {
             $acceptQuest.show();
+            $dropQuest.hide()
         }
 
 
@@ -264,7 +269,8 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(newQuest),
                 success: function(data){
-                    $acceptQuest.hide()
+                    $acceptQuest.hide();
+                    $dropQuest.show();
                     const assigned_quest_id = data.assigned_quest_id;
                     const user_id = data.user_id;
                     loadJournal(assigned_quest_id, user_id)
@@ -278,27 +284,68 @@ $(document).ready(function() {
         }
     }
 
-
     function loadJournal(assigned_quest_id, user_id){
 
-        
-        // $journalBody.append(`
-        // <div id="journalHeader" class="container">
-        // <button type="submit">Edit</button>
-        // <button type="submit">Post</button>
-        // </div>
-        // <form id = "journal">
-        //     <textarea id="journalContent" name="journal-content" rows="6" cols="50"></textarea>
-        // </form>
-        // <div id="journalDisplay" class="container">
-        // </div>
-        // `
+        const url = domain + `/journal/${user_id}/${assigned_quest_id}`
+        try {
+            $.ajax({
+                url,
+                type: 'GET',
+                success: function (data) {
+                    currentJournal = {
+                        post_id: data[0].post_id,
+                        content: data[0].content,
+                        user_id: data[0].user_id,
+                        assigned_quest_id: data[0].assigned_quest_id
+                    }
+                console.log(currentJournal)
+                $journalBody.append(`
+                <div id="journalHeader" class="container">
+                <button type="submit">Edit</button>
+                <button type="submit">Post</button>
+                </div>
 
+                <form id = "journal">
+                    <textarea id="journalContent" name="journal-content" rows="6" cols="50">${data.content}</textarea>
+                </form>
+                <div id="journalDisplay" class="container">
+                </div>
+                `
+                )
+                } 
+            })
+        } catch(error){
+            console.error('Error loading journal:', error)
+        }
+    }
+
+    $dropQuest.on('click', dropQuestFunc)
+
+    function dropQuestFunc(){
+        console.log('working')
+        let questToDrop = currentJournal.assigned_quest_id;
+        console.log(questToDrop)
+        const url = domain + `/quests/assigned_quests/${questToDrop}`
+
+        try {
+            $.ajax({
+                url,
+                type: 'DELETE',
+                success: function (data) {
+                    console.log('Quest Dropped', data)
+                    $journalBody.empty();
+                    $dropQuest.hide();
+                    $acceptQuest.show();
+                }
+            })
+        } catch(error){
+            console.error('Error Dropping Quest:', error)
+        }
     }
 
 
-
 });
+
 
 const $editJournal = $('#editJournal')
 const $postJournal = $('#postJournal')

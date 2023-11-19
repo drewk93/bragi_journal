@@ -78,21 +78,42 @@ app.get('/check_assignment/:user_id/:quest_title', async (req, res) => {
     const user_id = req.params.user_id;
     const quest_title = req.params.quest_title;
 
-
     try {
         // Check if the assignment exists in the database
         const result = await pool.query(
-            'SELECT EXISTS (SELECT 1 FROM assigned_quests WHERE user_id = $1 AND quest_id = (SELECT quest_id FROM quests WHERE quest_title = $2)) RETURNING assigned_quest_id',
+            'SELECT EXISTS (SELECT 1 FROM assigned_quests WHERE user_id = $1 AND quest_id = (SELECT quest_id FROM quests WHERE quest_title = $2))',
             [user_id, quest_title]
         );
-        const newAssignedQuestId = result1.rows[0].assigned_quest_id;
-        const assignmentExists = result.rows[0].exists;
 
-        // Send the result as a JSON response
-        res.status(200).json(result.rows);
+        // Extract the assignment existence status
+        const exists = result.rows[0].exists;
+
+        if (exists) {
+            // If the assignment exists, fetch the assigned_quest_id
+            const result2 = await pool.query(
+                'SELECT assigned_quest_id FROM assigned_quests WHERE user_id = $1 AND quest_id = (SELECT quest_id FROM quests WHERE quest_title = $2)',
+                [user_id, quest_title]
+            );
+            const assigned_quest_id = result2.rows[0].assigned_quest_id;
+
+            // Send the result with assigned_quest_id as a JSON response
+            const response = {
+                user_id: user_id,
+                assigned_quest_id: assigned_quest_id,
+                exists: exists
+            };
+            res.status(200).json(response);
+        } else {
+            // If the assignment doesn't exist, send a basic response with exists status
+            res.status(200).json({ exists: exists });
+        }
     } catch (error) {
         console.error('Error checking assignment:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+
+        // Properly log user_id and quest_title
+        console.log(user_id);
+        console.log(quest_title);
     }
 });
 
@@ -202,8 +223,39 @@ app.post('/register', async (req, res, next) => {
 });
 
 app.get('/journal/:user_id/:assigned_quest_id', async (req, res, next) => {
-
+    const user_id = parseInt(req.params.user_id)
+    const assigned_quest_id = parseInt(req.params.assigned_quest_id)
+    console.log(user_id)
+    console.log(assigned_quest_id)
+    try {
+        const result = await pool.query(
+            'SELECT * FROM journal WHERE journal.assigned_quest_id = $1 AND journal.user_id = $2',
+            [assigned_quest_id, user_id]
+        )
+        res.status(200).json(result.rows);
+    }catch (error){
+        console.error(error)
+        res.status(404).json({error: 'Resource Not Found'})
+    }
 })
+
+app.delete('/quests/assigned_quests/:assigned_quest_id', async (req, res, next) => {
+    const assigned_quest_id = parseInt(req.params.assigned_quest_id);
+
+    try {
+        const result = await pool.query('DELETE FROM assigned_quests WHERE assigned_quest_id = $1 RETURNING *', [assigned_quest_id]);
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ message: 'Assigned Quest Not Found' });
+        } else {
+            res.json({ message: 'Assigned Quest Dropped Successfully', droppedQuest: result.rows[0] });
+        }
+    } catch (error) {
+        console.error('Error dropping quest', error);
+        res.status(500).json({ message: 'Error dropping quest' });
+    }
+});
+
 
 
 app.use((err,req,res,next)=>{
