@@ -315,7 +315,7 @@
     padding: 1em .5em;
 }
 
-#objectiveItem{
+.objectiveItem{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

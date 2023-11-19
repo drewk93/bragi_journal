@@ -239,6 +239,49 @@ app.get('/journal/:user_id/:assigned_quest_id', async (req, res, next) => {
     }
 })
 
+app.get('/assigned_objectives/:assigned_quest_id', async (req, res, next) => {
+    const assigned_quest_id = parseInt(req.params.assigned_quest_id);
+
+    try {
+        const result = await pool.query(
+            'SELECT * FROM assigned_objectives WHERE assigned_quest_id = $1',
+            [assigned_quest_id]
+        );
+
+        if (result.rows.length === 0) {
+            res.status(404).json({ error: 'Assigned Objectives Not Found' });
+            return;
+        }
+
+        const quest_objective_id = result.rows[0].quest_objective_id;
+
+        const result2 = await pool.query(
+            `SELECT 
+                quest_objectives.quest_objective_id, 
+                quest_objectives.objective_title, 
+                quest_objectives.objective_description, 
+                quest_objectives.quest_id,
+                assigned_objectives.assigned_quest_objective_id,
+                assigned_objectives.completed,
+                assigned_objectives.assigned_quest_id
+            FROM 
+                quest_objectives
+            INNER JOIN 
+                assigned_objectives 
+            ON 
+                quest_objectives.quest_objective_id = assigned_objectives.quest_objective_id
+            WHERE 
+                quest_objectives.quest_objective_id = $1`,
+            [quest_objective_id]
+        );
+
+        res.status(200).json(result2.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.delete('/quests/assigned_quests/:assigned_quest_id', async (req, res, next) => {
     const assigned_quest_id = parseInt(req.params.assigned_quest_id);
 
