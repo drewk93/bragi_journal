@@ -211,7 +211,7 @@
 #journal {
     /* Center the #journal horizontally and vertically */
     display: none;
-    /* display: flex; */
+    
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -231,11 +231,9 @@
 }
 
 #journalDisplay {
-    display: none;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: white;
     padding: 1em;
     width: 90%;

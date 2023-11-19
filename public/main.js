@@ -275,31 +275,54 @@ $(document).ready(function () {
           </form>
           <div id="journalDisplay" class="container">${data[0].content}</div>
         `);
+        $saveJournal = $('#saveJournal')
+        $saveJournal.hide()
        
       } catch (error) {
         console.error('Error loading journal:', error);
       }
     }
 
+    $journalBody.on('click', '#editJournal', function() {
+        $saveJournal.show();
+        $editJournal = $('#editJournal')
+        $editJournal.hide();
+        const $journalDisplay = $('#journalDisplay')
+        const $journal = $('#journal');
+        $journalDisplay.css('display', 'none')
+        $journal.css('display', 'flex')
+    })
+
 
     $journalBody.on('click', '#saveJournal', function() {
-        // Find the closest parent div with id "journalHeader"
-        const $parentDiv = $(this).closest('#journalHeader');
-    
-        // Find the textarea within the parent divCon
-        const $journalContentTextarea = $parentDiv.find('#journal');
-    
-        // Get the value of the textarea
-        const journalContentValue = $journalContentTextarea.val();
-    
-        // Log the value to the console
-        console.log('working');
-        console.log(journalContentValue);
+        $editJournal.show();
+        $editJournal = $('#editJournal')
+        $saveJournal.hide();
+        const $journalDisplay = $('#journalDisplay')
+        $journalDisplay.css('display', 'flex')
+        const $journal = $('#journal');
+        $journal.css('display', 'hide')
+        const $journalContent = $('#journalContent');
+        const journalContentText = $journalContent.val();
+        saveJournal(journalContentText)
     });
 
-    async function editJournal(post_id){
+
+    async function saveJournal(journalContent){
+        const post_id = currentJournal.post_id
         const url = domain + `/journal/${post_id}`
-        const updatedContent =$('#journalContent').val();
+        try {
+            const data = await $.ajax({
+                url,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({ content: journalContent})
+            })
+            $journalBody.empty();
+            loadJournal(currentJournal.assigned_quest_id, currentJournal.user_id)
+        } catch (error){
+            console.error('Error saving journal', error)
+        }
     }
 
     async function loadQuestObjectives(assigned_quest_id){
