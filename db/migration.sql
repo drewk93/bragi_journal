@@ -59,7 +59,6 @@ CREATE TABLE assigned_objectives (
     completed BOOLEAN DEFAULT FALSE,
     assigned_quest_id INT NOT NULL,
     quest_objective_id INT NOT NULL,
-    FOREIGN KEY (assigned_quest_id) REFERENCES assigned_quests(assigned_quest_id),
+    FOREIGN KEY (assigned_quest_id) REFERENCES assigned_quests(assigned_quest_id) ON DELETE CASCADE,
     FOREIGN KEY (quest_objective_id) REFERENCES quest_objectives(quest_objective_id)
-    ON DELETE CASCADE
 );
