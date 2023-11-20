@@ -101,10 +101,12 @@ font-family: 'Smooch Sans', sans-serif;
     align-items: center;
     width: 90%;
     padding: 1.3em;
-    color: white;
-    border: thin solid white;
+    
 }
 
+#loginStatusMsg {
+    color: white;
+}
 
 
 
@@ -204,7 +206,7 @@ font-family: 'Smooch Sans', sans-serif;
     flex-direction: column;
     height: 70%;
     width: 100%;
-    border:3px solid black;
+    border:px solid #765d1e;
     padding: 1em;
     gap: 2em;
     overflow-y: scroll;
@@ -296,7 +298,7 @@ font-family: 'Smooch Sans', sans-serif;
     width: 100%;
     padding: 1em;
     background: #BEB7A4;
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid #765d1e;
 }
 
 #editJournal{
@@ -346,7 +348,7 @@ font-family: 'Smooch Sans', sans-serif;
     width: 100%;
     height: 100%;
     background: white;
-    border: 4px solid black;
+    border: 4px solid #765d1e;
     font-size: 1.6em;
 }
 
@@ -414,7 +416,6 @@ font-family: 'Smooch Sans', sans-serif;
     box-sizing: border-box;
     width: 100%;
     height: 70%;
-    border: 3px solid black;
     padding: 1em;
 
 }
@@ -426,7 +427,7 @@ font-family: 'Smooch Sans', sans-serif;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 3px solid black;
+    border: 3px solid #765d1e;
     overflow-y: scroll;
     gap: 1.5em;
     padding: 1em .5em;
