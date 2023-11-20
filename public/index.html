@@ -5,100 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Smooch+Sans&display=swap" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="main.js"></script>
 </head>
 <body id="body">
-
-
-
-    <div id="navbar" class="container">
-        <div id="bragiTitle" class="container">
-
-        </div>
-
-        <div id="accountSection" class="container">
-            <div id="loginContainer" class="container">
+    <div id="mainContainer" class="container">
+    <div id="loginContainer" class="container">
+        <div id="loginInputContainer" class="container">
             <label for="username" class="labels"> username:</label>
-            <input type="text" id="username" placeholder="username" autocomplete="off"><br><br>
+            <input type="text" id="username" placeholder="username" autocomplete="off">
             <label for="password" class="labels"> password:</label>
-            <input type="password" id="password" placeholder="password" autocomplete="off"><br><br>
-    
-            <button id="submitLogin" type="submit">LOGIN</button>
-            <button id="submitRegister" type="submit">REGISTER</button>
+            <input type="password" id="password" placeholder="password" autocomplete="off">
         </div>
+        <div id="loginBtnContainer" class="container"> 
+            <button id="submitLogin" class="loginBtn btn" type="submit">LOGIN</button>
+            <button id="submitRegister" class="loginBtn btn" type="submit">REGISTER</button>
+        </div>
+        <div id="loginStatus" class="container">
+            <p id='loginStatusMsg'>Login Failed!</p>
         </div>
     </div>
-
-
-    <div id="mainContainer" class="container">
-
-
+    <!-- Nav Bar -->
+    <div id="navbar" class="container">
+        <div id="bragiTitle" class="container">
+        </div>
+        <div id="accountSection" class="container">
+            <button id="logout" class="btn" type="submit">LOGOUT</button>
+        </div>
+    </div>
+    <!-- Row Container-->
+     <div id="rowContainer" class="container">
 
         <div id="gamesSection" class="container">
 
-            <div id="searchSection" class="container">
-                <h1 id="searchHeader"> Search </h1>
-                    <div id="searchBox" class="container">
-                        <input type="text" id="searchInput" placeholder="search games" autocomplete="off"><br><br>
-                        <button id="submitSearch" class="btn">Submit</button>
-                    </div>
-                <button id="getGames" class="btn">List All Games</button>
-            </div>
-            <div id="results" class="container">
-             
-                
-            </div>
-            
+                <div id="searchSection" class="container">
+                    <button id="getGames" class="btn">LIST ALL GAMES</button>
+                </div>
+                <div id="gameTitleContainer" class="container">
+                    
+                </div>
+                <div id="results" class="container">              
+               </div>
         </div>
-
 
         <div id="journalSection" class="journalSection">
-            Journals
+            <div id="titleHeader">
+                <h1>Quest Title</h1>
+            </div>
             <div id="questTitleContainer" class="container">
                 <h1 id="questTitle"></h1>
-                <button id="acceptQuest" class="container">Accept Quest</button>
-                <button id="dropQuest" class="container">Drop Quest</button>
+                <button id="acceptQuest" class="btn">Accept Quest</button>
+                <button id="dropQuest" class="btn">Drop Quest</button>
             </div>
-            
-
             <div id="journalBody" class="container">
-        
             </div>
         </div>
-
         
         <div id="questsSection" class="container">
-
+            <div id="questHeader" class="container">
+                <h1> Quest Description </h1>
+            </div>
             <div id="questDescription" class="container">
-            
+                  
             </div>
-
             <div id="questObjectives" class="container">
-
-               <h1>Objectives</h1>
-               <div id=objectiveScroll class="container">
-
-               </div>
+                 <h1>Objectives</h1>
+                <div id=objectiveScroll class="container">
+                </div>
             </div>
+         </div>
+         <!-- End Row Container -->
 
-        </div>
-        
-            
-        </div>
-    </div>
-    <div>
-
-
-
-
-
-    </div>
-
-
+</div>
 
     
 </body>

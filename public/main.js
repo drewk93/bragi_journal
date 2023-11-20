@@ -19,11 +19,14 @@ $(document).ready(function () {
     $dropQuest.hide();
     const $journalBody = $('#journalBody');
     $getGames.on('click', getGamesFunc);
-
-  
-   
-
-    const logins = {};
+    const $rowContainer = $('#rowContainer');
+    const $navBar = $('#navbar');
+    const $loginContainer = $('#loginContainer');
+    $rowContainer.hide();
+    $navBar.hide()
+    const $logout = $('#logout')
+    const $gameTitleContainer = $('#gameTitleContainer');
+    let logins = {};
     let currentJournal = {};
     let currentObjectives = {}
   
@@ -49,16 +52,39 @@ $(document).ready(function () {
         logins.user_id = user_id;
         logins.username = userbody.username;
         logins.login = true;
+        displayStatusMessage('Login Successful!',3000);
+        $loginContainer.hide('slow');
+        $rowContainer.show(2000);
+        $navBar.show(2000);
+        $('#username').val('');
+        $('#password').val('');
         console.log(logins);
       } catch (error) {
         console.error('Error:', error);
         console.error('Failed to login', userbody);
+        displayStatusMessage('Login Failed!!!', 1500)
       }
     }
-  
+
+    $logout.on('click', logoutFunc)
+    async function logoutFunc(){
+      logins = {};
+      $rowContainer.hide('slow');
+      $navBar.hide('slow')
+      $loginContainer.show(1500);
+    }
+
     $submitRegister = $('#submitRegister');
     $submitRegister.on('click', registerUser);
       async function registerUser() {
+      let usernameLength = $('#username').val().length;
+      let passwordLength = $('#password').val().length;
+      if(usernameLength === 0 || passwordLength === 0){
+        displayStatusMessage('Invalid Registration: Username cannot be empty and Password must be longer than 8 characters!', 5000)
+        return;
+      }
+    
+
       const url = domain + '/register';
       const userbody = {
         username: $('#username').val(),
@@ -72,15 +98,23 @@ $(document).ready(function () {
           contentType: 'application/json',
           data: JSON.stringify(userbody),
         });
-        if (data.status === 201) {
-          console.log('Registration successful');
-        } else {
-          console.log('Registration Failed');
-        }
+        displayStatusMessage('Registration Successful!', 1500);
       } catch (error) {
         console.error('Error:', error);
+        displayStatusMessage('Registration Error!', 1500);
       }
     }
+
+    function displayStatusMessage(message, duration) {
+      $loginStatus = $('#loginStatus')
+      $loginStatus.append(`<p id='loginStatusMsg'>${message}</p>`)
+      
+      // Set a timeout to remove the message after a specified duration
+      setTimeout(function() {
+        $loginStatus.empty();
+      }, duration);
+  }
+  
   
     // LIST GAMES
   
@@ -95,7 +129,7 @@ $(document).ready(function () {
           success: function (data) {
             data.forEach((item, index) => {
               $results.append(
-                `<div id="gameListItem" class="container">
+                `<div id="gameListItem" class="btn container">
                   <h2>${item.game_name}</h2>
                 </div>`
               );
@@ -109,7 +143,7 @@ $(document).ready(function () {
   
     // LIST QUESTS
     $results.on('click', '#gameListItem', loadQuestList);
-  
+    
     function loadQuestList() {
       const gameListItem = $(this).text().trim();
       const encodedGameListItem = encodeURIComponent(gameListItem);
@@ -117,6 +151,7 @@ $(document).ready(function () {
       console.log(encodedGameListItem);
     }
       async function loadQuestListFunc(encodedGameListItem) {
+      $gameTitleContainer.empty();
       $results.empty()
       const url = domain + `/games/${encodedGameListItem}`;
       console.log(url);
@@ -125,11 +160,11 @@ $(document).ready(function () {
           url,
           type: "GET",
         });
+        $gameTitleContainer.append(`<h1>"${data[0].game_name}"</h1>`)
         data.forEach((item, index) => {
           $results.append(
-            `<div id= "questListItem" class="container">
-              <h4>${item.game_name}</h4>
-              <h2 id="questItemTitle">${item.quest_title}</h2>
+            `<div id= "questListItem" class="btn container">
+              <h2 id="questItemTitle">"${item.quest_title}"</h2>
             </div>`
           );
         });
@@ -143,7 +178,7 @@ $(document).ready(function () {
     // CHECK ASSIGNMENT FIRST
   
     $results.on('click', '#questListItem', function () {
-      const questItemTitle = $(this).find('#questItemTitle').text().trim();
+      const questItemTitle = $(this).find('#questItemTitle').text().trim().replace(/^"(.*)"$/, '$1');
       const encodedQuestTitle = encodeURIComponent(questItemTitle);
       console.log(encodedQuestTitle);
       checkAssignmentAndLoadQuest(encodedQuestTitle);
@@ -204,10 +239,9 @@ $(document).ready(function () {
           url,
           type: "GET",
         });
-        $questTitle.append(`${data[0].quest_title}`)
+        $questTitle.append(`"${data[0].quest_title}"`)
         const quest_description = data[0].quest_description
         $questDescription.append(`
-          <h2>Quest Description</h2>
           <div id="descriptionBody" class="container">
             <p>${quest_description}</p>
           </div>
@@ -230,7 +264,7 @@ $(document).ready(function () {
       const url = domain + '/quests/assigned_quests'
       const newQuest = {
         user_id: user_id,
-        quest_title: $questTitle.text(),
+        quest_title: $questTitle.text().trim().replace(/^"(.*)"$/, '$1')
       }
       try {
         const data = await $.ajax({
@@ -265,15 +299,20 @@ $(document).ready(function () {
           user_id: data[0].user_id,
           assigned_quest_id: data[0].assigned_quest_id
         };
+        let initialContent = data[0].content
+        if (initialContent === null){
+          initialContent = ''
+        }
+
         $journalBody.append(`
           <div id="journalHeader" class="container">
-            <button id ="editJournal" type="submit">Edit</button>
-            <button id="saveJournal" type="submit">Post</button>
+            <button id ="editJournal" class="btn" type="submit">Edit</button>
+            <button id="saveJournal" class="btn" type="submit">Post</button>
           </div>
           <form id="journal">
-            <textarea id="journalContent" name="journal-content" rows="6" cols="50">${data[0].content}</textarea>
+            <textarea id="journalContent" name="journal-content" rows="6" cols="50">${initialContent}</textarea>
           </form>
-          <div id="journalDisplay" class="container">${data[0].content}</div>
+          <div id="journalDisplay" class="container">${initialContent}</div>
         `);
         $saveJournal = $('#saveJournal')
         $saveJournal.hide()
@@ -335,11 +374,12 @@ $(document).ready(function () {
             })
             data.forEach((item, index) => {
                 const buttonText = item.completed ? 'Complete' : 'Incomplete';
+                const buttonClass = item.completed ? 'status-complete' : 'status-incomplete';
                 $objectiveScroll.append(
                   `<div class="objectiveItem">
-                    <h3>${item.objective_title}</h3>
-                    <li>${item.objective_description}</li>
-                    <button id="objectiveComplete">${buttonText}</button>
+                    <h3 id = objectiveTitle">${item.objective_title}</h3>
+                    <li id="objectiveDescription">${item.objective_description}</li>
+                    <button id="objectiveComplete" class="btn ${buttonClass}">${buttonText}</button>
                   </div>`
                 )
 
@@ -361,7 +401,7 @@ $(document).ready(function () {
     }
 
     $objectiveScroll.on('click', '#objectiveComplete', function () {
-        console.log("working");
+               
         // Find the closest parent div with class "objectiveItem"
         const $parentDiv = $(this).closest('.objectiveItem');
         const $objectiveTitle = $parentDiv.find('h3');
@@ -373,26 +413,38 @@ $(document).ready(function () {
             // Matching objective found
             const assigned_quest_objective_id = matchingObjective.assigned_quest_objective_id;
             const assigned_quest_id = matchingObjective.assigned_quest_id;
-    
-            objectiveToggleFunc(assigned_quest_objective_id, assigned_quest_id)
+            objectiveToggleFunc(assigned_quest_objective_id, assigned_quest_id) 
         }
+
     });
 
-    async function objectiveToggleFunc(assigned_quest_objective_id, assigned_quest_id){
-        const url = domain + `/assigned_objectives/${assigned_quest_objective_id}`
-        try {
-            const data = await $.ajax({
-                url,
-                type: 'PUT',
-                contentType: 'application/json'
-            })
-            console.log('Objective Updated Successfully', data)
-            $objectiveScroll.empty();
-            loadQuestObjectives(assigned_quest_id)
-        }catch(error){
-            console.error('Error Updating Objective', error)
-        }
+  async function objectiveToggleFunc(assigned_quest_objective_id, assigned_quest_id) {
+    const url = domain + `/assigned_objectives/${assigned_quest_objective_id}`;
+    try {
+        const data = await $.ajax({
+            url,
+            type: 'PUT',
+            contentType: 'application/json'
+        });
+        console.log('Objective Updated Successfully', data);
+        $objectiveScroll.empty();
+        loadQuestObjectives(assigned_quest_id);
+    } catch (error) {
+        console.error('Error Updating Objective', error);
     }
+
+    // Select the #objectiveComplete element
+    const $objectiveComplete = $('#objectiveComplete');
+
+    // Check the text content and add the appropriate class for color
+    if ($objectiveComplete.text().trim() === 'Incomplete') {
+        $objectiveComplete.removeClass('status-complete'); // Remove the 'status-complete' class if it exists
+        $objectiveComplete.addClass('status-incomplete'); // Add the 'status-incomplete' class
+    } else if ($objectiveComplete.text().trim() === 'Complete') {
+        $objectiveComplete.removeClass('status-incomplete'); // Remove the 'status-incomplete' class if it exists
+        $objectiveComplete.addClass('status-complete'); // Add the 'status-complete' class
+    }
+}
 
 
 

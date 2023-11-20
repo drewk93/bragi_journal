@@ -1,30 +1,112 @@
 
 /* Chief Colors Scheme
 
-- Ivory: #E2DED0;
-- Blue Gray: #647C90
-- Cool Gray: #4E4F50
-- Gray:#746C70
+--moonstone: #69a2b0ff;
+--yinmn-blue: #274c77ff;
+--chamoisee: #9b7e46ff;
+--snow: #f9f4f5ff;
+--thistle: #cabac8ff;
 
 */
+/* 
+font-family: 'MedievalSharp', cursive;
+font-family: 'Smooch Sans', sans-serif;
+ */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    --ivory: #E2DED0;
-    --highlight: #4E4F50;
+    font-family: 'MedievalSharp', cursive;
+    color: #191716;
+}
+
+.background {
+    background-image: url('bragi_background.jpg');
+    background-size: cover;
+    /* Other background properties like background-position, background-repeat, etc. */
 }
 
 #body{
-    background: var(--ivory);
+    background-image: url('bragi_background.jpg');
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: .3em;
     height: 100vh;
 }
+
+#mainContainer{
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+#loginContainer{
+    background-image: linear-gradient(to bottom, #BEB7A4,#191716 );
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    height: 30%;
+    border: 4px solid black;
+    border-radius: 40px;
+    min-width: 40%;
+    font-size: 1.3em;
+ }
+
+
+#loginInputContainer{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.7em;
+    gap: 2em;
+}
+
+#loginBtnContainer{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-around;
+    gap: .6em;
+    width: 50%;
+    height: 30%;
+}
+
+.loginBtn {
+    height: 100%;
+    font-size: 1.3em;
+}
+
+.loginBtn:hover {
+    cursor: pointer;
+}
+
+#loginStatus {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 1.3em;
+    color: white;
+    border: thin solid white;
+}
+
+
+
 
 #navbar{
     box-sizing: border-box;
@@ -33,43 +115,43 @@
     justify-content: space-between;
     width: 100%;
     height: 8%;
-    border: 3px solid black;
 }
+
+
+
 
 
 #bragiTitle{
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    width: 30%;
+    width: 20%;
     height: 100%;
-    border: 3px solid black;
+    background: #BEB7A4;
 }
 
 #accountSection {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    width: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
     height: 100%;
-    border: 3px solid black;
     padding: 1em;
+    background: #BEB7A4;
+}
+
+#logout{
+    padding: 1em;
+    font-size: 1.2em;
+    min-height: 10%;
+    font-weight: bold;
 }
 
 
-#loginContainer{
-   box-sizing: border-box;
-   display: flex;
-   height: 50%;
-}
 
-#submitLogin {
-   
-}
-
-
-
-#mainContainer{
+#rowContainer{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -82,46 +164,45 @@
     flex-direction: column;
     width: 20%;
     height: 100%;
-    border: 3px solid black;
+    background-color: #BEB7A4
 }
 
 #searchSection{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    height: 25%;
+    height: 15%;
     width: 100%;
     padding: 1rem;
-    border: 3px solid black;
     gap: 2rem;
 }
 
-#searchHeader{
-    align-self: center;
+#getGames {
+    padding: 1em;
+    font-size: 1.2em;
+    min-height: 10%;
+    font-weight: bold;
 }
 
-#searchBox{
+#gameTitleContainer {
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    height: 15%;
     width: 100%;
-    border: 1px solid white;
-}
-
-#searchInput{
-    width:80%;
-}
-
-#submitSearch{
-    width:20%;
+    font-size: 1em;
 }
 
 #results {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-sizing: border-box;
     flex-direction: column;
-    height: 75%;
+    height: 70%;
     width: 100%;
     border:3px solid black;
     padding: 1em;
@@ -139,10 +220,11 @@
     gap: .5em;
     border: 1px solid black;
     border-radius: 30px;
+    background: #E0E2DB;
 }
 
 #gameListItem:hover{
-    background-color: grey;
+    background-color: #E6AF2E;
 }
 
 #questListItem{
@@ -150,17 +232,18 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    text-align: center;
     width: 100%;
     padding: 1em;
     gap: .5em;
     border: 1px solid black;
     border-radius: 30px;
+    background: #E0E2DB;
 }
 
 #questListItem:hover{
-    background-color: grey;
+    background-color: #E6AF2E;
 }
-
 /* Journal */
 
 #journalSection{
@@ -170,7 +253,6 @@
     box-sizing: border-box;
     width: 50%;
     height: 100%;
-    border: 3px solid black;
 }
 
 #questTitleContainer {
@@ -179,21 +261,58 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.1em;
+    text-align: center;
+    font-size: 2em;
     padding: 1.2em;
     gap: 1em;
     width: 100%;
-    height: 15%;
-    border: 3px solid black;
+    height: auto;
+}
+
+#acceptQuest {
+    padding: .5em;
+    font-size: .8em;
+    min-height: 10%;
+    font-weight: bold;
+}
+
+#dropQuest {
+    padding: .5em;
+    font-size: .8em;
+    min-height: 10%;
+    font-weight: bold;
+}
+
+#titleHeader{
+    font-size: 1.2em;
+    padding: 1em;
 }
 
 #journalHeader{
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     width: 100%;
     padding: 1em;
-    border: 1px solid black;
+    background: #BEB7A4;
+    border-bottom: 5px solid black;
+}
+
+#editJournal{
+    padding: 1em;
+    font-size: 1.4em;
+    min-height: 10%;
+    font-weight: bold;
+    width: 20%;
+}
+
+#saveJournal{
+    padding: 1em;
+    font-size: 1.4em;
+    min-height: 10%;
+    font-weight: bold;
+    width: 20%;
 }
 
 #journalBody {
@@ -204,7 +323,6 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    border: 3px solid black;
     padding: 1em;
 }
 
@@ -224,43 +342,44 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
     padding: 1em;
-    width: 90%;
+    width: 100%;
     height: 100%;
+    background: white;
+    border: 4px solid black;
+    font-size: 1.6em;
 }
 
 #journalDisplay {
-
+    background: #f9f4f5ff;
     display: flex;
     flex-direction: column;
-    background-color: white;
     padding: 1em;
-    width: 90%;
+    width: 100%;
     height: 100%;
-    
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1.6em;
 }
 
 
-#bragi {
-    border: 2px solid black;
-    width: 200px;
-    height: 200px;
-    border-radius: 50px;
-    text-align: center;
-    padding: 1em;
-}
 
 
 /* Quests */
 
 #questsSection{
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width:30%;
     height: 100%;
-    border: 3px solid green;
+    background-color: #BEB7A4;
 }
-
+#questHeader{
+    font-size: 1.2em;
+    padding: 1em;
+}
 
 #questDescription{
     box-sizing: border-box;
@@ -268,11 +387,11 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    font-size: 1.2em;
     padding: 1em;
     width: 100%;
     height: 30%;
-    border: 3px solid black;
+    font-size: 1.2em;
+
 }
 
 #descriptionBody{
@@ -311,16 +430,44 @@
     overflow-y: scroll;
     gap: 1.5em;
     padding: 1em .5em;
+    
 }
 
 .objectiveItem{
     box-sizing: border-box;
+    font-family: 'Smooch Sans', sans-serif;
+    font-size: 1.4em;
     display: flex;
     flex-direction: column;
+    text-align: center;
     width: 90%;
     padding: 1.5em;
-    background-color: white;
+    background: #E0E2DB;
     border: thin solid black;
+    border-radius: 30px;
+}
+.objectiveItem * {
+    font-family: inherit; /* Apply the font to all descendants */
+}
+
+#objectiveComplete{
+    font-size: 1.4em;
+}
+
+.status-incomplete {
+    background-color: #E6AF2E;
+}
+
+.status-complete {
+    background-color: #14591D;
+    color: white;
 }
 
 
+.btn{
+    transition: transform 0.2s; /* Add a smooth transition for a smoother effect */
+}
+.btn:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
