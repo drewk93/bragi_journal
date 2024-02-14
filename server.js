@@ -11,7 +11,6 @@ import bcrypt from 'bcrypt'
 // EXPRESS
 const app = express();
 app.use(express.json())
-app.use(express.static('public'))
 
 // CORS & DOTENV
 app.use(cors())
@@ -254,6 +253,20 @@ app.put('/journal/:post_id', async (req, res, next) => {
     }
 });
 
+app.patch('/donuts/:id', async (req, res, next) => {
+    const id = parseInt(req.params.id);
+    const { name, topping, qty } = req.body;
+    try {
+        const donut = await pool.query('SELECT * FROM donuts WHERE id = $1', [id])
+        if (donut.rows.length === 0){
+            return res.status(404).send('Unable to locate resource.')
+        }
+        const result = await pool.query('UPDATE donuts SET name = $1, topping = $2, qty = $3 WHERE id = $4', [name, topping, qty, id])
+        res.status(200).json(result.rows)
+    }
+    catch(error){
+    next(error)}
+})
 
 
 app.get('/assigned_objectives/:assigned_quest_id', async (req, res, next) => {
